@@ -6,7 +6,10 @@
 	bottom:14px;left:14px;}
 #sR .close:hover{opacity:1;}
 
-#btn-sR{bottom:0;left:0;}
+#btn-sR{position:absolute;bottom:1em;left:1em;opacity:.5;
+	cursor:pointer;}
+#btn-sR svg{height:40px;width:40px;display:block;}
+#btn-sR:hover{opacity:1;}
 
 
 #sR{position:absolute;top:0;right:100%;z-index:3;
@@ -41,7 +44,7 @@
 }*/
 #sR ul li b{position:absolute;top:0;left:0;
 	width:100%;height:100%;
-	background:no-repeat 50% 50%; 
+	background:no-repeat 50% 50%;
 	background-size:cover;
 	opacity:.3;}
 #sR ul li.a b,
@@ -72,7 +75,7 @@ body{
 #sR,#sR li,#sR li b{transition:opacity .3s ease;}
 </style>
 
-<a class="btn" id="btn-sR">
+<a id="btn-sR">
 	<svg>
 		<rect x="6" y="9" rx="2" ry="2" width="28" height="5"/>
 		<rect x="6" y="18" rx="2" ry="2" width="28" height="5"/>
@@ -129,6 +132,10 @@ R=[
 	},
 	{
 		title:'偶像大师'
+	},
+	{
+		title:'站长喜欢的音乐',
+		des:'网易云'
 	}
 ],hide=function(){
 	body.style.cssText='';
@@ -189,7 +196,7 @@ var setRid=function(rid){
 	}else
 		console.log(rid);
 
-	
+
 };
 setRid.cut=cut;
 

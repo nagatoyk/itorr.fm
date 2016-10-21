@@ -39,84 +39,76 @@
 	<a id="m-blog">访问作者网站...</a>
 	<a id="m-help">帮助<span>i</span></a>
 </div>
-<script>!function(doc){
+<script>
+!function(doc){
+	var $=function(i){return doc.getElementById(i)},
+	o=$('menu');
+	var hideM=function(e){
+		o.className='h';
+		doc.onclick=null
+	};
+	doc.oncontextmenu=function(e){
+		e=e||window.event;
+		var body=document.body,
+		top=e.clientY,
+		left=e.clientX;
+		var MaxLeft=o.offsetWidth+15;
+		if(body.offsetWidth-left<MaxLeft)
+			left=body.offsetWidth-MaxLeft;
+		var MaxTop=o.offsetHeight+15;
+		if(body.offsetHeight-top<MaxTop)
+			top=body.offsetHeight-MaxTop;
+		o.style.cssText='left:'+left+'px;top:'+top+'px;';
+		o.className='';
+		doc.onclick=hideM;
+		return false
+	};
+	o.onclick=function(e){
+		e.stopPropagation()
+	};
+	o.oncontextmenu=function(e){
+		e.stopPropagation();
+		return false
+	}
+	var h=function(i,f){
+		var o=$('m-'+i);
+		if(o){
+			$('m-'+i).onclick=function(e){
 
-var
-$=function(i){return doc.getElementById(i)},
-o=$('menu');
-var hideM=function(e){
-	o.className='h';
-	doc.onclick=null;
-};
-doc.oncontextmenu=function(e){
-	e=e||window.event;
-
-	var 
-	body=document.body,
-	top=e.clientY,
-	left=e.clientX;
-
-
-	var MaxLeft=o.offsetWidth+15;
-	if(body.offsetWidth-left<MaxLeft)
-		left=body.offsetWidth-MaxLeft;
-
-	var MaxTop=o.offsetHeight+15;
-	if(body.offsetHeight-top<MaxTop)
-		top=body.offsetHeight-MaxTop;
-	o.style.cssText='left:'+left+'px;top:'+top+'px;';
-	o.className='';
-
-	doc.onclick=hideM;
-	return false;
-};
-o.onclick=function(e){
-	e.stopPropagation();
-}
-o.oncontextmenu=function(e){
-	e.stopPropagation();
-	return false;
-}
-var h=function(i,f){
-	var o=$('m-'+i);
-	if(o)
-		$('m-'+i).onclick=function(e){
-
-			f(e);
-			hideM();
-		};
-};
-
-h('play',function(e){
-	$('play').click();
-});
-h('like',function(e){
-	$('like').click();
-});
-h('next',function(e){
-	$('next').click();
-});
-h('down',function(e){
-	$('fo-btn-down').click();
-});
-h('xiami',function(e){
-	$('fo-btn-xiami').click();
-});
-h('weibo',function(e){
-	$('fo-btn-weibo').click();
-});
-h('s',function(e){
-	$('showS').click();
-});
-h('bug',function(e){
-	open('http://1.mouto.org/','_black','height=409,width=564');
-});
-h('blog',function(e){
-	open('http://i.mouto.org/','_black');
-});
-h('help',function(e){
-	$('key-btn').click();
-});
-
-
-}(document)</script>
+				f(e);
+				hideM()
+			}
+		}
+	};
+	h('play',function(e){
+		$('play').click()
+	});
+	h('like',function(e){
+		$('like').click()
+	});
+	h('next',function(e){
+		$('next').click()
+	});
+	h('down',function(e){
+		$('fo-btn-down').click()
+	});
+	h('xiami',function(e){
+		$('fo-btn-xiami').click()
+	});
+	h('weibo',function(e){
+		$('fo-btn-weibo').click()
+	});
+	h('s',function(e){
+		$('showS').click()
+	});
+	h('bug',function(e){
+		open('http://1.mouto.org/','_black','height=409,width=564')
+	});
+	h('blog',function(e){
+		open('http://i.mouto.org/','_black')
+	});
+	h('help',function(e){
+		$('key-btn').click()
+	})
+}(document)
+</script>

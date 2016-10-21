@@ -1,7 +1,7 @@
 <style>
 #s-box{position:absolute;position:fixed;top:0;left:0;bottom:0;right:0;z-index:4;
 	background:#222;background:rgba(0,0,0,.9);
-	
+
 	transition:opacity .3s ease;
 	opacity:1;}
 #s-box.h{z-index:-1;opacity:0;pointer-events:none;}
@@ -33,7 +33,7 @@
 #s input:focus{}
 #s button{position:absolute;z-index:1;left:0;top:0;
 	border:0;margin:0;padding:4px;
-	
+
 	-webkit-appearance:none;
 	background:none;
 	cursor:pointer;}
@@ -83,125 +83,108 @@
 </div>
 <script>
 !function(){
-var sb=$('#s-box');
-
-$('#showS').onclick=function(){
-	sb.className='';
-	Si.onfocus();
-}
-
-$('#s-box .close').onclick=function(){
-	sb.className='h';
-}
-
-var 
-F=$('#s'),
-su=$('#su'),
-Si=F.k,
-k,
-X,
-T,
-start=0,
-get=function(k,start){
-	//console.log(start);
-	X=x('x/?a=search&k='+encodeURIComponent(k)+'&start='+(start||0),function(ps){
-		if(!ps||ps.length==0){
-			if(su.innerHTML.length<40||start==0){
-				noL('没有找到相关内容，尝试更换关键词？');
-			}else{
-				noMore('没有更多了');
-			}
-			su.onscroll=null;
-			return 
-		}
-	
-		var h='';
-		for(var i=0,o;i<ps.length;i++){
-			o=ps[i];
-			if(!o.xid)
-				continue;
-
-			h+='<li><a href="#!'+o.xid+'"><img src="'+
-			function(){
-				if(o.img.match(/^http:\/\//))
-					return o.img;
-				else
-					return 'http://img.xiami.net/images/album/'+o.img;
-			}()+'"><h4>'+o.title+'</h4>\
-			<p>「'+o.album_name+'」'+o.artist+'</p>'
-		}
-		if(start==0)
-			su.innerHTML='<ul>'+h+'</ul>';
-		else{
-			var ul=$.D.m('ul');
-			ul.innerHTML=h;
-			$.D.a(su,ul);
-		}
-
-		start+=ps.length;
-
-		//console.log(ps.length);
-		if(ps.length<30){
-			noMore('没有更多了');
-			su.onscroll=null;
-			return;
-		}
-		//console.log('!');
-		su.onscroll=function(){
-			
-			if((su.scrollTop+su.clientHeight+400)>su.scrollHeight){
+	var sb=$('#s-box');
+	$('#showS').onclick=function(){
+		sb.className='';
+		Si.onfocus()
+	}
+	$('#s-box .close').onclick=function(){
+		sb.className='h'
+	}
+	var F=$('#s'),
+	su=$('#su'),
+	Si=F.k,
+	k,
+	X,
+	T,
+	start=0,
+	get=function(k,start){
+		// console.log(start);
+		X=x('x/?a=search&k='+encodeURIComponent(k)+'&start='+(start||0),function(ps){
+			if(!ps||ps.length==0){
+				if(su.innerHTML.length<40||start==0){
+					noL('没有找到相关内容，尝试更换关键词？');
+				}else{
+					noMore('没有更多了');
+				}
 				su.onscroll=null;
-
-				get(k,start);
-
+				return
 			}
-
-		};
-	});
-	//console.log(3)
-},
-noL=function(i){
-	su.innerHTML='<p class="s-banner">'+i+'</p>';
-},
-noMore=function(i){
-	var ul=$.D.m('p');
-	ul.className='s-banner';
-	ul.innerHTML=i;
-	$.D.a(su,ul);
-};
-Si.onfocus=Si.onchange=Si.onkeypress=Si.onkeyup=function(){
-	if(Si.value==k)
-		return;
-
-	if(X)
-		X.abort();
-
-	k=Si.value;
-
-	clearTimeout(T);
-	T=setTimeout(function(){
-		start=0;
-		get(k,start);
-	},200);
-};
-
-Si.onkeydown=function(e){
-	if(e&&e.stopPropagation) 
+			var h='';
+			for(var i=0,o;i<ps.length;i++){
+				o=ps[i];
+				if(!o.xid)
+					continue;
+				h+='<li><a href="#!'+o.xid+'"><img src="'+
+				function(){
+					if(o.img.match(/^http:\/\//))
+						return o.img;
+					else
+						return 'http://img.xiami.net/images/album/'+o.img;
+				}()+'"><h4>'+o.title+'</h4>\
+				<p>「'+o.album_name+'」'+o.artist+'</p>'
+			}
+			if(start==0)
+				su.innerHTML='<ul>'+h+'</ul>';
+			else{
+				var ul=$.D.m('ul');
+				ul.innerHTML=h;
+				$.D.a(su,ul)
+			}
+			start+=ps.length;
+			// console.log(ps.length);
+			if(ps.length<30){
+				noMore('没有更多了');
+				su.onscroll=null;
+				return;
+			}
+			// console.log('!');
+			su.onscroll=function(){
+				if((su.scrollTop+su.clientHeight+400)>su.scrollHeight){
+					su.onscroll=null;
+					get(k,start)
+				}
+			};
+		});
+		// console.log(3)
+	},
+	noL=function(i){
+		su.innerHTML='<p class="s-banner">'+i+'</p>';
+	},
+	noMore=function(i){
+		var ul=$.D.m('p');
+		ul.className='s-banner';
+		ul.innerHTML=i;
+		$.D.a(su,ul)
+	};
+	Si.onfocus=Si.onchange=Si.onkeypress=Si.onkeyup=function(){
+		if(Si.value==k)
+			return;
+		if(X)
+			X.abort();
+		k=Si.value;
+		clearTimeout(T);
+		T=setTimeout(function(){
+			start=0;
+			get(k,start);
+		},200)
+	};
+	Si.onkeydown=function(e){
+		if(e&&e.stopPropagation)
+			e.stopPropagation();
+	    else
+			window.event.cancelBubble=true;
+	};
+	F.onsubmit=function(){
+		Si.onfocus();
+		return false
+	};
+	su.ontouchmove=function(e){
 		e.stopPropagation();
-    else
-		window.event.cancelBubble=true;
-};
-
-F.onsubmit=function(){
-	Si.onfocus();
-	return false
-};
-su.ontouchmove=function(e){
-	e.stopPropagation();
-	//console.log('su');
-};
-su.onmousewheel=function(e){
-	e.stopPropagation();
-}
+		// console.log('su')
+	};
+	su.onmousewheel=function(e){
+		e.stopPropagation()
+	}
 }();
 </script>
