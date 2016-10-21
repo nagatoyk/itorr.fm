@@ -150,7 +150,7 @@ fm=function(win,doc){
 		},
 		song:function(i){
 			var f=function(r){
-				//playList.push(r.xid);
+				/*playList.push(r.xid);*/
 				fm.play(r)
 			};
 			if(list[i])
@@ -166,7 +166,7 @@ fm=function(win,doc){
 						if(i!=0)
 							playList.push(r[i].xid)
 					}
-					//console.log(playList);
+					/*console.log(playList);*/
 					f(r[0])
 				})
 		},
@@ -210,10 +210,10 @@ fm=function(win,doc){
 			dm.send('like');
 		$('#like').className='a';
 		x('x/?a=like','xid='+location.hash.match(/[\d]+/),function(r){
-			//console.log(r);
+			/*console.log(r);*/
 			if(r.error)
 				return alert(r.error);
-			//$('#like').className='a'
+			/*$('#like').className='a'*/
 		});
 	};
 	$('img').onload=function(){
@@ -249,7 +249,7 @@ fm=function(win,doc){
 				laHash=location.hash;
 			}
 		},100);
-	//console.log('「偷揉FM v7」<http://itorr.sinaapp.com/fm/> @卜卜口 于 2014/8/24');
+	/*console.log('「偷揉FM v7」<http://itorr.sinaapp.com/fm/> @卜卜口 于 2014/8/24');*/
 	console.log('「偷揉FM v7」<http://github.com/itorr/itorr.fm> @卜卜口 于 2015/5/23');
 	return fm;
 }(window,document);
