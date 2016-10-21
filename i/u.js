@@ -1,77 +1,72 @@
-var U=function($){
-	var 
-	apiUrl='http://api.mouto.org/',
-	// apiUrl = 'http://kloli.tk/fm/',
-	M,
-	U={
-		init:function(o){
-			M=$(o);
-			if($.cookie('sss')){
-				U.sss($.cookie('sss'))
+var U=function(b){
+	var c='http://api.mouto.org/',
+	d,
+	a={
+		init:function(e){
+			d=b(e);
+			if(b.cookie('sss')){
+				a.sss(b.cookie('sss'))
 			}else{
-				U.getsss()
-			};
+				a.getsss()
+			}
 		},
 		getsss:function(){
-			$.j(apiUrl+'login.php?a=sss&cb={cb}',function(u){
-				if(!u.sss){
-					M.innerHTML='<a id="loginBtn">登录</a>';
-					$('#loginBtn').onclick=function(){
-						U.login();
+			b.j(c+'x/?a=sss&cb={cb}',function(e){
+				if(!e.sss){
+					d.innerHTML='<a id='loginBtn'>登录</a>';
+					b('#loginBtn').onclick=function(){
+						a.login();
 						return false
-					}
-					return //alert('未登录');
+					};
+					return
 				}
-				$.cookie('sss',u.sss);
-				U.sss(u.sss)
+				b.cookie('sss',e.sss);
+				a.sss(e.sss)
 			})
 		},
-		sss:function(sss){
-			if(sss){
-				x('login.php','sss='+sss,function(u){
-					// console.log(u);
-					if(u.error){
-						return U.getsss()
-					};
-					U.me=u;
-					M.innerHTML=u.name;
-					U.allike();
-					// alert('登陆成功');
-					// $('#m').innerHTML='<a href="x/?a=logout">退出</a>';
+		sss:function(e){
+			if(e){
+				b.x('x/u.php','sss='+e,function(f){
+					if(f.error){
+						return a.getsss()
+					}
+					a.me=f;
+					d.innerHTML=f.name;
+					a.allike()
 				})
 			}
 		},
 		login:function(){
-			var uriData={
-				'redirect':location.href
-			};
-			var get=[];
-			for(var name in uriData)
-				get.push(name+'='+encodeURIComponent(uriData[name]));
-			get=get.join('&');
-			location.href=apiUrl+'login.html#!'+get
-			// location.href=apiUrl+'login.php?'+get
+			var g={'redirect':location.href};
+			var f=[];
+			for(var e in g){
+				f.push(e+'='+encodeURIComponent(g[e]))
+			}
+			f=f.join('&');
+			location.href=c+'login.html#!'+f
 		},
 		allike:function(){
-			x('like.php?a=allike',function(r){
-				var likes={};
-				if(!r)
-					return U.likes=likes;
-				for(var i=0,l=r.length;i<l;i++){
-					likes[r[i]]=true
+			b.x('x/?a=allike',function(h){
+				var f={};
+				if(!h){
+					return a.likes=f
 				}
-				U.likes=likes;
-				U.iflike(location.hash.match(/\d+/)+'',function(r){
-					$('#like').className=r?'a':'';
+				for(var g=0,e=h.length;g<e;g++){
+					f[h[g]]=true
+				}
+				a.likes=f;
+				a.iflike(location.hash.match(/\d+/)+'',function(i){
+					b('#like').className=i?'a':''
 				})
 			})
 		},
-		iflike:function(i,f){
-			if(!U.likes)
-				return f(false);
-			f(U.likes[i])
+		iflike:function(e,g){
+			if(!a.likes){
+				return g(false)
+			}
+			g(a.likes[e])
 		}
 	};
-	return U
+	return a
 }(iTorr);
 U.init('#u');
