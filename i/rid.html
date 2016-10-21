@@ -88,116 +88,99 @@ body{
 	<ul></ul>
 </div>
 
-<script>window.setRid=function(doc){
-
-var
-o=document.getElementById('sR'),
-rid=localStorage.getItem('rid')||0,
-body=document.body,
-R=[
-	{
-		title:'偷揉电台',
-		des:'可发弹幕的ACG电台',
+<script>
+window.setRid=function(doc){
+	var o=document.getElementById('sR'),
+	rid=localStorage.getItem('rid')||0,
+	body=document.body,
+	R=[
+		{
+			title:'偷揉电台',
+			des:'可发弹幕的ACG电台',
+		},
+		{
+			title:'久石让',
+			des:'日本著名音乐人、作曲家、歌手、钢琴家。',
+		},
+		{
+			title:'月代 彩',
+			des:'中国大陆人',
+		},
+		{
+			title:'ろん',
+			des:'初投稿は2008年9月。',
+		},
+		{
+			title:'新井大樹',
+			des:'初投稿は2008年9月。',
+		},
+		{
+			title:'ClariS'
+		},
+		{
+			title:'虾米动漫风'
+		},
+		{
+			title:'梶浦由記'
+		},
+		{
+			title:'茶太'
+		},
+		{
+			title:'神前晓'
+		},
+		{
+			title:'偶像大师'
+		},
+		{
+			title:'站长喜欢的音乐',
+			des:'网易云'
+		}
+	],
+	hide=function(){
+		body.style.cssText=''
 	},
-	{
-		title:'久石让',
-		des:'日本著名音乐人、作曲家、歌手、钢琴家。',
+	show=function(){
+		body.style.cssText='-webkit-transform:translateX(350px);transform:translateX(350px);/*left:350px;*/'
 	},
-	{
-		title:'月代 彩',
-		des:'中国大陆人',
-	},
-	{
-		title:'ろん',
-		des:'初投稿は2008年9月。',
-	},
-	{
-		title:'新井大樹',
-		des:'初投稿は2008年9月。',
-	},
-	{
-		title:'ClariS'
-	},
-	{
-		title:'虾米动漫风'
-	},
-	{
-		title:'梶浦由記'
-	},
-	{
-		title:'茶太'
-	},
-	{
-		title:'神前晓'
-	},
-	{
-		title:'偶像大师'
-	},
-	{
-		title:'站长喜欢的音乐',
-		des:'网易云'
+	cut=function(){
+		if(body.style.cssText)
+			hide();
+		else
+			show();
+	};
+	document.getElementById('btn-sR').onclick=cut;
+	for(var h='',i=0;i<R.length;i++){
+		h+='<li onclick="setRid('+i+')"><b style="background-image:url(img/r/'+i+'.jpg)"></b><h4>'+R[i].title+'</h4></li>'
 	}
-],hide=function(){
-	body.style.cssText='';
-},show=function(){
-	body.style.cssText='-webkit-transform:translateX(350px);transform:translateX(350px);';/*left:350px;*/
-},cut=function(){
-	if(body.style.cssText){
-		hide();
-	}else{
-		show();
-	}
-};
-
-
-document.getElementById('btn-sR').onclick=cut;
-
-
-for(var h='',i=0;i<R.length;i++){
-	h+='<li onclick="setRid('+i+')"><b style="background-image:url(img/r/'+i+'.jpg)"></b><h4>'+R[i].title+'</h4></li>'
-}
-
-o.getElementsByTagName('span')[0].onclick=hide;
-o.getElementsByTagName('ul')[0].innerHTML=h;
-
-
-var rid=parseInt(localStorage.getItem('rid')||0);
-
-var oldRLi;
-var Rli=o.getElementsByTagName('li');
-oldRLi=Rli[rid];
-
-oldRLi.className='a';
-
-o.onmousewheel=
-o.ontouchmove=function(e){
-	e.stopPropagation();
-};
-
-if(window.fm){
-	fm.rid=rid;
-}
-
-var setRid=function(rid){
-	hide();
-
-	if(fm.rid==rid)
-		return;
-
-	localStorage.setItem('rid',rid);
-	oldRLi.className='';
-	Rli[rid].className='a';
-
-
+	o.getElementsByTagName('span')[0].onclick=hide;
+	o.getElementsByTagName('ul')[0].innerHTML=h;
+	var rid=parseInt(localStorage.getItem('rid')||0);
+	var oldRLi;
+	var Rli=o.getElementsByTagName('li');
 	oldRLi=Rli[rid];
-	if(window.fm){
+	oldRLi.className='a';
+	o.onmousewheel=
+	o.ontouchmove=function(e){
+		e.stopPropagation()
+	};
+	if(window.fm)
 		fm.rid=rid;
-		fm.clear();
-	}else
-		console.log(rid);
-
-
-};
-setRid.cut=cut;
-
-return setRid;}(document);</script>
+	var setRid=function(rid){
+		hide();
+		if(fm.rid==rid)
+			return;
+		localStorage.setItem('rid',rid);
+		oldRLi.className='';
+		Rli[rid].className='a';
+		oldRLi=Rli[rid];
+		if(window.fm){
+			fm.rid=rid;
+			fm.clear()
+		}else
+			console.log(rid);
+	};
+	setRid.cut=cut;
+	return setRid
+}(document);
+</script>

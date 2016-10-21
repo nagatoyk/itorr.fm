@@ -12,7 +12,7 @@ var dm=function(){
 			setTimeout(function(){
 				a.className='star min';
 				setTimeout(function(){
-					//a.className='star';
+					/*a.className='star';*/
 					$.D.d(a)
 				},1000)
 			},2000)
@@ -22,27 +22,26 @@ var dm=function(){
 		$.D.d(this)
 	},
 	made=function(T,cb){
-		// $.css(span,'top:'+(Math.random()*90+5)+'%;left:'+_left+'px;');
+		/*$.css(span,'top:'+(Math.random()*90+5)+'%;left:'+_left+'px;');*/
 		var newhei=120,
 		oheight,
 		randN=0;
-		// http://localhost:8888/fm/#!1769876870 防碰撞脚本测试页
+		/*http://localhost:8888/fm/#!1769876870 防碰撞脚本测试页*/
 		var wh=function(f){
 			var newhei=(Math.random()*96);
-			//return f(newhei);
-			/*
+			/*return f(newhei);
 			if(randN>80){
-				//alert();
+				alert();
 				console.log('防碰撞无能为力');
 				return newhei;
-			}
-			*/
+			}*/
 			for(var o=$.S('#dm span'),l=o.length,i=0;i<l;i++){
 				oheight=o[i].top;
-				// console.log(o[i].getAttribute('left'),o[i].clientWidth);
+				/*console.log(o[i].getAttribute('left'),o[i].clientWidth);*/
 				if(o[i].left+o[i].clientWidth>_width && Math.abs(oheight-newhei)<3.4){
 					randN++;
-					return false;wh(f)
+					return false;
+					wh(f)
 				}
 			}
 			return newhei;
@@ -52,14 +51,13 @@ var dm=function(){
 		for(var i=0;newhei==false;i++){
 			newhei=wh();
 			if(i>60){
-				//console.log('现在无法解决的问题交给未来！');
+				/*console.log('现在无法解决的问题交给未来！');*/
 				return setTimeout(function(){
 					made(T,cb);
 				},1000);
 				break;
 			}
 		}
-		//,i<180
 		/*如果是红心*/
 		if(T.msg=='like')
 			return starAdd();
@@ -72,38 +70,35 @@ var dm=function(){
 		$.D.a(obj,span);
 		span.addEventListener('webkitAnimationEnd',spanEnd,false);
 		span.addEventListener('animationEnd',spanEnd,false);
-		// dm_itvl.push(setTimeout(function(){
-		// 	$.D.d(span)
-		// },50000));
-
-		if(cb)cb(span);
-		/*
-		wh(function(newhei){
+		/*dm_itvl.push(setTimeout(function(){
+			$.D.d(span)
+		},50000));*/
+		if(cb)
+			cb(span);
+		/*wh(function(newhei){
 			$.css(span,'top:'+newhei+'%;');
 			span.top=newhei;
 			$.D.a(obj,span);
-
 			setTimeout(function(){
 				$.D.d(span);
 			},30000);
-		})
-		*/
+		})*/
 	},
 	step=function(){
 		for(var o=$.S('#dm span'),l=o.length,i=0,T;i<l;i++){
 			T=o[i];
-			// console.log(123131,i,T);
+			/*console.log(123131,i,T);*/
 			var _left=T.left-10;
-			// console.log();
+			/*console.log();*/
 			if(_left+T.clientWidth>-500){
 				T.left=_left;
-				// $.css(T,'left:'+_left+'px;');
+				/*$.css(T,'left:'+_left+'px;');*/
 			}else{
-				// $.D.d(T);
+				/*$.D.d(T);*/
 			}
 		}
 		var t=parseInt(fm.time());
-		//console.log(t);
+		/*console.log(t);*/
 		for(var l=dm_list.length,T,i=0;i<l;i++){
 			T=dm_list[i];
 			if(T.time<t){
@@ -116,7 +111,6 @@ var dm=function(){
 				l--
 			}
 		}
-		//if(dm_list)
 		interval=setTimeout(step,100)
 	},
 	dm={

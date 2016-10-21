@@ -41,7 +41,9 @@
 </div>
 <script>
 !function(doc){
-	var $=function(i){return doc.getElementById(i)},
+	var $=function(i){
+		return doc.getElementById(i)
+	},
 	o=$('menu');
 	var hideM=function(e){
 		o.className='h';
@@ -74,7 +76,6 @@
 		var o=$('m-'+i);
 		if(o){
 			$('m-'+i).onclick=function(e){
-
 				f(e);
 				hideM()
 			}
@@ -110,5 +111,5 @@
 	h('help',function(e){
 		$('key-btn').click()
 	})
-}(document)
+}(document);
 </script>

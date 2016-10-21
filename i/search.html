@@ -99,14 +99,13 @@
 	T,
 	start=0,
 	get=function(k,start){
-		// console.log(start);
+		/*console.log(start);*/
 		X=x('x/?a=search&k='+encodeURIComponent(k)+'&start='+(start||0),function(ps){
 			if(!ps||ps.length==0){
-				if(su.innerHTML.length<40||start==0){
+				if(su.innerHTML.length<40||start==0)
 					noL('没有找到相关内容，尝试更换关键词？');
-				}else{
+				else
 					noMore('没有更多了');
-				}
 				su.onscroll=null;
 				return
 			}
@@ -115,8 +114,7 @@
 				o=ps[i];
 				if(!o.xid)
 					continue;
-				h+='<li><a href="#!'+o.xid+'"><img src="'+
-				function(){
+				h+='<li><a href="#!'+o.xid+'"><img src="'+function(){
 					if(o.img.match(/^http:\/\//))
 						return o.img;
 					else
@@ -132,13 +130,13 @@
 				$.D.a(su,ul)
 			}
 			start+=ps.length;
-			// console.log(ps.length);
+			/*console.log(ps.length);*/
 			if(ps.length<30){
 				noMore('没有更多了');
 				su.onscroll=null;
-				return;
+				return
 			}
-			// console.log('!');
+			/*console.log('!');*/
 			su.onscroll=function(){
 				if((su.scrollTop+su.clientHeight+400)>su.scrollHeight){
 					su.onscroll=null;
@@ -146,10 +144,10 @@
 				}
 			};
 		});
-		// console.log(3)
+		/*console.log(3)*/
 	},
 	noL=function(i){
-		su.innerHTML='<p class="s-banner">'+i+'</p>';
+		su.innerHTML='<p class="s-banner">'+i+'</p>'
 	},
 	noMore=function(i){
 		var ul=$.D.m('p');
@@ -166,7 +164,7 @@
 		clearTimeout(T);
 		T=setTimeout(function(){
 			start=0;
-			get(k,start);
+			get(k,start)
 		},200)
 	};
 	Si.onkeydown=function(e){
@@ -181,7 +179,7 @@
 	};
 	su.ontouchmove=function(e){
 		e.stopPropagation();
-		// console.log('su')
+		/*console.log('su')*/
 	};
 	su.onmousewheel=function(e){
 		e.stopPropagation()

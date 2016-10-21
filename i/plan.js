@@ -6,15 +6,14 @@
 	planTime=planPlay.getElementsByTagName('span')[0],
 	planBox=planPlay.getElementsByTagName('b')[0];
 	A.addEventListener('timeupdate',function(i){
-		// console.log(i);
-		// console.log(A.buffered);
-		// $('#play2').className='h';
-		// console.log(fm.A.buffered.length);
+		/*console.log(i);
+		console.log(A.buffered);
+		$('#play2').className='h';
+		console.log(fm.A.buffered.length);*/
 		if(A.buffered.length>0)
 			planLoad.style.cssText+='width:'+A.buffered.end(A.buffered.length-1)/A.duration*100+'%';
-		if(mouse_down){
-			return
-		}
+		if(mouse_down)
+			return;
 		planPlay.style.cssText+='width:'+A.currentTime/A.duration*100+'%';
 		planTime.innerHTML=function(){
 			if(!A.currentTime)
@@ -27,13 +26,14 @@
 		}();
 		lrc.step()
 	},true);
-	planB.onmousedown=planB.ontouchstart=function(e){
+	planB.onmousedown=
+	planB.ontouchstart=function(e){
 		e.stopPropagation();
 		e.preventDefault();
 		mouse_down=1;
 		planPlay.className='onmouse';
 		e=window.event||e;
-		// console.log(e.x,planBox.offsetWidth,e.x-planBox.offsetWidth);
+		/*console.log(e.x,planBox.offsetWidth,e.x-planBox.offsetWidth);*/
 		window.onmousemove=window.ontouchmove=function(e){
 			e.stopPropagation();
 			e.preventDefault();
@@ -49,7 +49,8 @@
 			}()
 		};
 		window.onmousemove(e);
-		window.onmouseup=window.ontouchend=function(){
+		window.onmouseup=
+		window.ontouchend=function(){
 			A.currentTime=A.duration*(planPlay.offsetWidth/planB.offsetWidth);
 			mouse_down=0;
 			planPlay.className='nomouse';
@@ -60,11 +61,11 @@
 		}
 	};
 	document.body.ontouchmove=function(e){
-		// e.stopPropagation();
-		// console.log(e)
-		// if()
-		// console.log('body');
-		e.preventDefault();
+		/*e.stopPropagation();
+		console.log(e)
+		if()
+		console.log('body');*/
+		e.preventDefault()
 	};
 	A.addEventListener('ended',fm.next,false)
 }(fm,fm.A);
