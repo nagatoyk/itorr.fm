@@ -96,10 +96,9 @@ $('#fo-btn').onclick=function(){
 	rid=localStorage.getItem('rid')||0;
 	$('#fo-box').className=
 	$('#fo-box-drow').className='';
+	$('#fo-btn-down').className=
+	$('#fo-btn-xiami').className=(rid<11?'':'h');
 	$('#fo-btn-weibo').setAttribute('rid',rid);
-	$.css($('#fo-btn-down'),'display:none;');
-	if(rid>=11)
-		$.css($('#fo-btn-xiami'),'display:none;');
 	if(!navigator.userAgent.match(/ipad|iphone|touch|android/i))
 		QR()
 };
