@@ -270,7 +270,7 @@ var evalHtml=function(i,hash){
 		div.innerHTML=H;
 		$.D.a(div);
 		script=H.split('<script>')[1].split('<\/script>')[0];
-		if(i==fo)
+		if(i=='fo')
 			eval(script+'$(\'#fo-btn-weibo\').setAttribute(\'rid\','+fm.rid+')');
 		else
 			eval(script);
