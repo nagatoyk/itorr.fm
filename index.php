@@ -11,8 +11,8 @@ with(location){if(protocol=='https:'||search){/*href='http://itorr.sinaapp.com/f
 <!-- <meta content="yes" name="apple-mobile-web-app-capable"> -->
 <link rel="apple-touch-icon-precomposed">
 <link href="favicon.ico" rel="shortcut icon">
-<link rel="stylesheet" type="text/css" href="i/style.css?v=<?php echo filemtime('i/style.css'); ?>">
-<!-- <?php $et = filemtime('i/style.css');echo $et.'|Last modified: '.date('Y-m-d H:i:s', $et); ?> -->
+<link rel="stylesheet" type="text/css" href="i/style.css?v=<?php echo hash_file('md5', 'i/style.css'); ?>">
+<!-- <?php echo hash_file('md5', 'i/style.css'); ?> -->
 <div id="box">
 	<div class="cover">
 		<img class="h">
