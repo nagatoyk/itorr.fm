@@ -56,8 +56,8 @@ class music {
 	// 歌手列表拼接
 	public function artists($list){
 		$name = '';
-		foreach($list as $k){
-			$name .= ','.$k['name'];
+		foreach($list as $k=>$v){
+			$name .= ','.$v['name'];
 		}
 		return ltrim($name, ',');
 	}
@@ -88,15 +88,18 @@ if($_GET['a'] == 'get'){
 			$v['album']['id'],
 			$v['album']['picUrl'],
 			$mp3Url,
-			htmlspecialchars($v['name'], ENT_QUOTES),
+			htmlspecialchars($v['hMusic']['name'], ENT_QUOTES),
 			htmlspecialchars($v['album']['name'], ENT_QUOTES),
 			htmlspecialchars($artists, ENT_QUOTES),
-			$v['mvid']
+			$v['mvid'],
+			$v['duration']
 		);
 		$insertSql[] = '(\''.implode('\',\'', $_sql).'\')';
 	}
-	$insertSql = 'insert into imouto_music (`sid`,`aid`,`img`,`mp3`,`name`,`album`,`artists`,`mvid`) values '.implode(',', $insertSql).';';
-	$sql->runSql($insertSql);
+	$insertSql = 'insert into imouto_music (`sid`,`aid`,`img`,`mp3`,`name`,`album`,`artists`,`mvid`,`duration`) values '.implode(',', $insertSql).';';
+	// echo $insertSql;
+	dd($sql->runSql($insertSql));
+	p($sql->error());
 }elseif($_GET['a'] == 'radio'){
 	// $e = $sql->runSql('SELECT `sid` AS `xid`, `aid` AS `album_id`, `name` AS `title`, `album` AS `album_name`, `artists` AS `artist`,`play`,`img`,`mp3` FROM imouto_music WHERE id >= (SELECT FLOOR(MAX(id) * RAND()) FROM `imouto_music`) ORDER BY RAND() LIMIT 5');
 	$d = $sql->getData('SELECT `sid` AS `xid`, `aid` AS `album_id`, `name` AS `title`, `album` AS `album_name`, `artists` AS `artist`,`play`,`img`,`mp3` FROM imouto_music ORDER BY RAND() LIMIT 5');

@@ -150,6 +150,7 @@ fm=function(win,doc){
 					$('#ctrl').className='h load'
 				}
 			},3e3);
+			console.log(fm.A);
 			/*如果待播放列表剩余不及3首 那么载入更多*/
 			if(playList.length<3)
 				add()
@@ -160,7 +161,7 @@ fm=function(win,doc){
 				fm.play(r)
 			};
 			if(list[i])
-				f(list[i])
+				f(list[i]);
 			else
 				x((fm.rid<11?'x/?a=song&id=':'music.163.php?a=song&id=')+i+'&_r='+Math.random(),function(r){
 					if(r.error){
@@ -194,6 +195,10 @@ fm=function(win,doc){
 			i=i||1;
 			A.currentTime+=i*5;
 		}
+	};
+	fm.A.onerror=function(e){
+		console.log(e);
+		fm.next()
 	};
 	fm.rid=localStorage.getItem('rid')||0;
 	$.j('i/plan.js?h=<?php fileHash('i/plan.js'); ?>');

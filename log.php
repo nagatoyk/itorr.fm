@@ -1,21 +1,26 @@
 <?php
 require 'moefou.class.php';
 require '../x/mysql.class.php';
-$pid = $_POST['pid'];
-$rid = $_POST['rid'];
-if(preg_match('/^[0-9]{5,12}$/', $pid)/* && preg_match('/^[0-9]{1,3}$/', $rid)*/){
-	$data = $sql->getLine('SELECT * FROM imouto_playcount WHERE pid=\''.$pid.'\'');
+$pid = (int) $_POST['pid'];
+$rid = (int) $_POST['rid'];
+if($pid > 0){
+	if($rid == 11){
+		$sql->runSql("UPDATE imouto_music SET play=play+1 WHERE sid='$pid'");
+	}
+	$data = $sql->getLine("SELECT * FROM imouto_playcount WHERE pid='$pid'");
 	if($data){
-		$sql->runSql('UPDATE imouto_playcount SET pcount=pcount+1 WHERE pid=\''.$pid.'\'');
+		$sql->runSql("UPDATE imouto_playcount SET pcount=pcount+1 WHERE pid='$pid'");
 		$r = array(
-			'id'=>$pid,
+			'id'=>$data['id'],
+			'pid'=>$pid,
 			'msg'=>'更新记录成功!',
 			'count'=>($data['pcount'] + 1)
 		);
 	}else{
-		$sql->runSql('INSERT INTO imouto_playcount (`pid`,`rid`,`pcount`) VALUES ('.$pid.','.$rid.',1)');
+		$sql->runSql("INSERT INTO imouto_playcount (`pid`,`rid`,`pcount`) VALUES ('$pid','$rid',1)");
 		$r = array(
 			'id'=>$sql->lastId(),
+			'pid'=>$pid,
 			'msg'=>'添加记录成功!',
 			'count'=>1
 		);
