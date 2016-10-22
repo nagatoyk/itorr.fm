@@ -285,6 +285,7 @@ setTimeout(function(){
 	/*i/star.css?h=<?php fileHash('i/star.css'); ?>*/
 	evalHtml('fo','<?php fileHash('i/fo.html'); ?>');
 	/*i/fo.html?h=<?php fileHash('i/fo.html'); ?>*/
+	$('#fo-btn-weibo').setAttribute(rid, fm.rid);
 	evalHtml('key','<?php fileHash('i/key.html'); ?>');
 	/*i/key.html?h=<?php fileHash('i/key.html'); ?>*/
 	evalHtml('menu','<?php fileHash('i/menu.html'); ?>');
@@ -303,5 +304,4 @@ setTimeout(function(){
 		FastClick.attach(document.body);
 	});
 },1000);
-$('#fo-btn-weibo').setAttribute(rid, fm.rid);
 </script>
