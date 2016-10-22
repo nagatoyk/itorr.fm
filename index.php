@@ -1,7 +1,7 @@
 <?php
 date_default_timezone_set('Asia/Shanghai');
-function fileHash($filename){
-	echo hash_file('md5', $filename);
+function filetohash($filename){
+	return hash_file('md5', $filename);
 }
 ?>
 <!DOCTYPE html>
@@ -16,7 +16,7 @@ with(location){if(protocol=='https:'||search){/*href='http://itorr.sinaapp.com/f
 <!-- <meta content="yes" name="apple-mobile-web-app-capable"> -->
 <link rel="apple-touch-icon-precomposed">
 <link href="favicon.ico" rel="shortcut icon">
-<link rel="stylesheet" type="text/css" href="i/style.css?h=<?php fileHash('i/style.css'); ?>">
+<link rel="stylesheet" type="text/css" href="i/style.css?h=<?php echo filetohash('i/style.css'); ?>">
 <!-- i/style.css?h=<?php ileHash('i/style.css'); ?> -->
 <div id="box">
 	<div class="cover">
@@ -49,8 +49,8 @@ with(location){if(protocol=='https:'||search){/*href='http://itorr.sinaapp.com/f
 		<b><span></span><i></i></b>
 	</div>
 </div>
-<script src="i/itorr.m.js?h=<?php fileHash('i/itorr.m.js'); ?>"></script>
-<!-- i/itorr.m.js?h=<?php fileHash('i/itorr.m.js'); ?> -->
+<script src="i/itorr.m.js?h=<?php echo filetohash('i/itorr.m.js'); ?>"></script>
+<!-- i/itorr.m.js?h=<?php echo filetohash('i/itorr.m.js'); ?> -->
 <script>
 String.prototype.enTxt=function(){
 	return this.replace(/(^\s*)|(\s*$)/g,'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/ /g,'&nbsp;').replace(/\'/g,'&#39;').replace(/\"/g,'&quot;')
@@ -197,8 +197,8 @@ fm=function(win,doc){
 			A.currentTime+=i*5;
 		}
 	};
-	$.j('i/plan.js?h=<?php fileHash('i/plan.js'); ?>');
-	/*i/plan.js?h=<?php fileHash('i/plan.js'); ?>*/
+	$.j('i/plan.js?h=<?php echo filetohash('i/plan.js'); ?>');
+	/*i/plan.js?h=<?php echo filetohash('i/plan.js'); ?>*/
 	$('#play').onclick=function(){
 		if(A.paused){
 			A.play();
@@ -245,7 +245,7 @@ fm=function(win,doc){
 		if(laHash==location.hash)
 			return;
 		if(lash.match(/\&rid=[0-9]+/))
-			localStorage.setItem(rid,lash.match(/\&rid=([0-9]+)/)[1])
+			localStorage.setItem(rid,lash.match(/\&rid=([0-9]+)/)[1]);
 		if(lash.match(/[0-9]{5,20}/))
 			fm.song(lash);
 		else if(!run)
@@ -272,34 +272,34 @@ var evalHtml=function(i,hash){
 		eval(H.split('<script>')[1].split('<\/script>')[0]);
 	});
 };
-$.j('i/dm.js?h=<?php fileHash('i/dm.js'); ?>');
-/*i/dm.js?h=<?php fileHash('i/dm.js'); ?>*/
-$.j('i/lrc.js?h=<?php fileHash('i/lrc.js'); ?>');
-/*i/lrc.js?h=<?php fileHash('i/lrc.js'); ?>*/
-$.j('i/u.js?h=<?php fileHash('i/u.js'); ?>');
-/*i/u.js?h=<?php fileHash('i/u.js'); ?>*/
-evalHtml('search',<?php fileHash('i/search.html'); ?>);
-/*i/search.html?h=<?php fileHash('i/search.html'); ?>*/
+$.j('i/dm.js?h=<?php echo filetohash('i/dm.js'); ?>');
+/*i/dm.js?h=<?php echo filetohash('i/dm.js'); ?>*/
+$.j('i/lrc.js?h=<?php echo filetohash('i/lrc.js'); ?>');
+/*i/lrc.js?h=<?php echo filetohash('i/lrc.js'); ?>*/
+$.j('i/u.js?h=<?php echo filetohash('i/u.js'); ?>');
+/*i/u.js?h=<?php echo filetohash('i/u.js'); ?>*/
+evalHtml('search',<?php echo filetohash('i/search.html'); ?>);
+/*i/search.html?h=<?php echo filetohash('i/search.html'); ?>*/
 setTimeout(function(){
-	$.lcss('i/star.css?h=<?php fileHash('i/star.css'); ?>');
-	/*i/star.css?h=<?php fileHash('i/star.css'); ?>*/
-	evalHtml('fo',<?php fileHash('i/fo.html'); ?>);
-	/*i/fo.html?h=<?php fileHash('i/fo.html'); ?>*/
-	evalHtml('key',<?php fileHash('i/key.html'); ?>);
-	/*i/key.html?h=<?php fileHash('i/key.html'); ?>*/
-	evalHtml('menu',<?php fileHash('i/menu.html'); ?>);
-	/*i/menu.html?h=<?php fileHash('i/menu.html'); ?>*/
-	evalHtml('volume',<?php fileHash('i/volume.html'); ?>);
-	/*i/volume.html?h=<?php fileHash('i/volume.html'); ?>*/
-	evalHtml('rid',<?php fileHash('i/rid.html'); ?>);
-	/*i/rid.html?h=<?php fileHash('i/rid.html'); ?>*/
-	$.j('i/hotkey.js?h=<?php fileHash('i/hotkey.js'); ?>');
-	/*i/hotkey.js?h=<?php fileHash('i/hotkey.js'); ?>*/
-	$.j('i/crop.js?h=<?php fileHash('i/crop.js'); ?>');
-	/*i/crop.js?h=<?php fileHash('i/crop.js'); ?>*/
+	$.lcss('i/star.css?h=<?php echo filetohash('i/star.css'); ?>');
+	/*i/star.css?h=<?php echo filetohash('i/star.css'); ?>*/
+	evalHtml('fo',<?php echo filetohash('i/fo.html'); ?>);
+	/*i/fo.html?h=<?php echo filetohash('i/fo.html'); ?>*/
+	evalHtml('key',<?php echo filetohash('i/key.html'); ?>);
+	/*i/key.html?h=<?php echo filetohash('i/key.html'); ?>*/
+	evalHtml('menu',<?php echo filetohash('i/menu.html'); ?>);
+	/*i/menu.html?h=<?php echo filetohash('i/menu.html'); ?>*/
+	evalHtml('volume',<?php echo filetohash('i/volume.html'); ?>);
+	/*i/volume.html?h=<?php echo filetohash('i/volume.html'); ?>*/
+	evalHtml('rid',<?php echo filetohash('i/rid.html'); ?>);
+	/*i/rid.html?h=<?php echo filetohash('i/rid.html'); ?>*/
+	$.j('i/hotkey.js?h=<?php echo filetohash('i/hotkey.js'); ?>');
+	/*i/hotkey.js?h=<?php echo filetohash('i/hotkey.js'); ?>*/
+	$.j('i/crop.js?h=<?php echo filetohash('i/crop.js'); ?>');
+	/*i/crop.js?h=<?php echo filetohash('i/crop.js'); ?>*/
 	$.j('//1.mouto.org/x.js');
-	$.j('i/fastclick.m.js?h=<?php fileHash('i/fastclick.m.js'); ?>',function(){
-		/*i/fastclick.m.js?h=<?php fileHash('i/fastclick.m.js'); ?>*/
+	$.j('i/fastclick.m.js?h=<?php echo filetohash('i/fastclick.m.js'); ?>',function(){
+		/*i/fastclick.m.js?h=<?php echo filetohash('i/fastclick.m.js'); ?>*/
 		FastClick.attach(document.body);
 	});
 },1000);
