@@ -10,7 +10,7 @@ with(location){if(protocol=='https:'||search){/*href='http://itorr.sinaapp.com/f
 <!-- <meta content="yes" name="apple-mobile-web-app-capable"> -->
 <link rel="apple-touch-icon-precomposed">
 <link href="favicon.ico" rel="shortcut icon">
-<link rel="stylesheet" type="text/css" href="i/style.css">
+<link rel="stylesheet" type="text/css" href="i/style.css?<?php echo filemtime('./i/style.css'); ?>">
 <div id="box">
 	<div class="cover">
 		<img class="h">

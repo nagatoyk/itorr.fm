@@ -22,31 +22,38 @@ class music {
 		curl_close($ch);
 		return $output;
 	}
+	// 目前无法获得mp3Url
 	public function get_music_info($music_id){
 		$url = 'http://music.163.com/api/song/detail/?id='.$music_id.'&ids=%5B'.$music_id.'%5D';
 		return self::curl_get($url);
 	}
+	// 获取歌手专辑信息
 	public function get_artist_album($artist_id, $limit){
 		$url = 'http://music.163.com/api/artist/albums/'.$artist_id.'?limit='.$limit;
 		return self::curl_get($url);
 	}
+	// 获取专辑列表信息
 	public function get_album_info($album_id){
 		$url = 'http://music.163.com/api/album/'.$album_id;
 		return self::curl_get($url);
 	}
+	// 获取指定歌单列表信息
 	public function get_playlist_info($playlist_id){
 		$url = 'http://music.163.com/api/playlist/detail?id='.$playlist_id;
 		return self::curl_get($url);
 	}
+	// 获取歌词
 	public function get_music_lyric($music_id){
 		// $url = 'http://music.163.com/api/song/lyric?os=pc&id='.$music_id.'&lv=-1&kv=-1&tv=-1';
 		$url = 'http://music.163.com/api/song/media?id='.$music_id;
 		return self::curl_get($url);
 	}
+	// 获取MV信息
 	public function get_mv_info($mvid, $type = 'mp4'){
 		$url = 'http://music.163.com/api/mv/detail?id='.$mvid.'&type='.$type;
 		return self::curl_get($url);
 	}
+	// 歌手列表拼接
 	public function artists($list){
 		$name = '';
 		foreach($list as $k){
@@ -57,7 +64,7 @@ class music {
 }
 if(!function_exists('p')){
 	function p($var){
-		echo '<pre>'.print_r($var, TRUE).'</pre>';
+		echo '<pre>'.print_r($var, true).'</pre>';
 	}
 }
 if(!function_exists('dd')){
@@ -70,7 +77,8 @@ if(!function_exists('dd')){
 $music = new music();
 $d = array();
 if($_GET['a'] == 'get'){
-	$data = json_decode($music->get_playlist_info('2660385'), true);
+	$id = isset($_GET['id']) ? (int) $_GET['id'] : '2660385';
+	$data = json_decode($music->get_playlist_info($id), true);
 	$insertSql = array();
 	foreach($data['result']['tracks'] as $k => $v){
 		$artists = $music->artists($v['artists']);
@@ -96,12 +104,12 @@ if($_GET['a'] == 'get'){
 	echo json_encode($d);
 
 }elseif($_GET['a'] == 'song'){
-	$id = (int)$_GET['id'];
+	$id = (int) $_GET['id'];
 	$d = $sql->getData('SELECT `sid` AS `xid`, `aid` AS `album_id`, `name` AS `title`, `album` AS `album_name`, `artists` AS `artist`,`play`,`img`,`mp3` FROM imouto_music WHERE `sid`=\''.$id.'\' LIMIT 1');
 	header('Content-type: application/json;charset=utf-8');
 	echo json_encode($d);
 }elseif($_GET['a'] == 'lrc'){
-	$id = (int)$_GET['id'];
+	$id = (int) $_GET['id'];
 	$lrc_info = json_decode($music->get_music_lyric($id), true);
 	/*if(isset($lrc_info['lrc']['lyric'])){
 		echo $lrc_info['lrc']['lyric'];
