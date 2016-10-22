@@ -303,4 +303,5 @@ setTimeout(function(){
 		FastClick.attach(document.body);
 	});
 },1000);
+$('#fo-btn-weibo').setAttribute(rid, fm.rid);
 </script>
