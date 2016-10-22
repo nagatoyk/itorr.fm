@@ -11,6 +11,7 @@ with(location){if(protocol=='https:'||search){/*href='http://itorr.sinaapp.com/f
 <link rel="apple-touch-icon-precomposed">
 <link href="favicon.ico" rel="shortcut icon">
 <link rel="stylesheet" type="text/css" href="i/style.css?v=<?php echo filemtime('./i/style.css'); ?>">
+<!-- <?php $et = filemtime('./i/style.css');echo $et.'|Last modified: '.date('F d Y H:i:s', $et); ?> -->
 <div id="box">
 	<div class="cover">
 		<img class="h">
