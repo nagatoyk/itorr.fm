@@ -1,3 +1,4 @@
+<?php date_default_timezone_set('Asia/Shanghai'); ?>
 <!DOCTYPE html>
 <script>
 with(location){if(protocol=='https:'||search){/*href='http://itorr.sinaapp.com/fm/'+hash*/href='http://kloli.tk/fm/'+hash}}
