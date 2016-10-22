@@ -88,7 +88,7 @@ if($_GET['a'] == 'get'){
 			$v['album']['id'],
 			$v['album']['picUrl'],
 			$mp3Url,
-			htmlspecialchars($v['hMusic']['name'], ENT_QUOTES),
+			htmlspecialchars(ltrim(rtrim($v['name'])), ENT_QUOTES),
 			htmlspecialchars($v['album']['name'], ENT_QUOTES),
 			htmlspecialchars($artists, ENT_QUOTES),
 			$v['mvid'],
