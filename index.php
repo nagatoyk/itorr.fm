@@ -151,6 +151,7 @@ fm=function(win,doc){
 				}else{
 					$('#ctrl').className='h load'
 				}
+				$('#fo-btn-weibo').setAttribute(rid, fm.rid)
 			},3e3);
 			/*如果待播放列表剩余不及3首 那么载入更多*/
 			if(playList.length<3)
@@ -285,7 +286,6 @@ setTimeout(function(){
 	/*i/star.css?h=<?php fileHash('i/star.css'); ?>*/
 	evalHtml('fo','<?php fileHash('i/fo.html'); ?>');
 	/*i/fo.html?h=<?php fileHash('i/fo.html'); ?>*/
-	$('#fo-btn-weibo').setAttribute(rid, fm.rid);
 	evalHtml('key','<?php fileHash('i/key.html'); ?>');
 	/*i/key.html?h=<?php fileHash('i/key.html'); ?>*/
 	evalHtml('menu','<?php fileHash('i/menu.html'); ?>');
@@ -303,5 +303,5 @@ setTimeout(function(){
 		/*i/fastclick.m.js?h=<?php fileHash('i/fastclick.m.js'); ?>*/
 		FastClick.attach(document.body);
 	});
-},1000);
+},3e3);
 </script>
