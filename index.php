@@ -197,6 +197,7 @@ fm=function(win,doc){
 			A.currentTime+=i*5;
 		}
 	};
+	fm.rid=localStorage.getItem('rid')||0;
 	$.j('i/plan.js?h=<?php fileHash('i/plan.js'); ?>');
 	/*i/plan.js?h=<?php fileHash('i/plan.js'); ?>*/
 	$('#play').onclick=function(){
@@ -237,7 +238,6 @@ fm=function(win,doc){
 	if(UA.match(/ip(ad|hone)/i))
 		$('#play2').className='';
 	$('meta[name="viewport"]').content=UA.match(/ipad/i)?'width=1024,user-scalable=no,minimal-ui':UA.match(/iphone/i)?'width=520,user-scalable=no,minimal-ui':'width=720';
-	fm.rid=localStorage.getItem('rid')||0;
 	var laHash='简直惨惨惨OAQ',popstate=function(){
 		var lash=location.hash.substring(2);
 		if('onhashchange' in win)
@@ -245,7 +245,7 @@ fm=function(win,doc){
 		if(laHash==location.hash)
 			return;
 		if(lash.match(/\&rid=[0-9]+/))
-			localStorage.setItem(rid,lash.match(/\&rid=([0-9]+)/)[1]);
+			localStorage.setItem('rid',lash.match(/\&rid=([0-9]+)/)[1]);
 		if(lash.match(/[0-9]{5,20}/))
 			fm.song(lash);
 		else if(!run)
@@ -269,11 +269,7 @@ var evalHtml=function(i,hash){
 		var div=$.D.m('div');
 		div.innerHTML=H;
 		$.D.a(div);
-		script=H.split('<script>')[1].split('<\/script>')[0];
-		if(i=='fo')
-			eval(script+'$(\'#fo-btn-weibo\').setAttribute(\'rid\','+fm.rid+')');
-		else
-			eval(script);
+		eval(H.split('<script>')[1].split('<\/script>')[0]);
 	});
 };
 $.j('i/dm.js?h=<?php fileHash('i/dm.js'); ?>');
