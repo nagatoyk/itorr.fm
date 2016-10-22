@@ -108,9 +108,10 @@ $('#fo-btn-down').onclick=function(){
 	return false
 };
 $('#fo-btn-weibo').onclick=function(){
+	rid = this.getAttribute('rid');
 	if(!$('img').src)
 		return false;
-	this.href='http://service.weibo.com/share/share.php?url='+encodeURIComponent((this.getAttribute(rid)<11?location.href:location.href+'&rid='+this.getAttribute(rid)))+'&title='+encodeURIComponent('#偷揉电台#正在播放『'+document.title+'』，这里可以边听歌变发射弹幕哟~')+'&language=zh_cn&pic='+encodeURIComponent((this.getAttribute(rid)<11?$('img').src.replace(/_(3|2|1)\./,'.'):$('img').src))
+	this.href='http://service.weibo.com/share/share.php?url='+encodeURIComponent((rid<11?location.href:location.href+'&rid='+rid))+'&title='+encodeURIComponent('#偷揉电台#正在播放『'+document.title+'』，这里可以边听歌变发射弹幕哟~')+'&language=zh_cn&pic='+encodeURIComponent((rid<11?$('img').src.replace(/_(3|2|1)\./,'.'):$('img').src))
 };
 $('#fo-btn-xiami').onclick=function(){
 	open('http://www.xiami.com/song/'+location.hash.match(/\d+/),'_black');
