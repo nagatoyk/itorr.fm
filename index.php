@@ -151,7 +151,6 @@ fm=function(win,doc){
 				}else{
 					$('#ctrl').className='h load'
 				}
-				$('#fo-btn-weibo').setAttribute(rid, fm.rid)
 			},3e3);
 			/*如果待播放列表剩余不及3首 那么载入更多*/
 			if(playList.length<3)
@@ -270,7 +269,11 @@ var evalHtml=function(i,hash){
 		var div=$.D.m('div');
 		div.innerHTML=H;
 		$.D.a(div);
-		eval(H.split('<script>')[1].split('<\/script>')[0]);
+		script=H.split('<script>')[1].split('<\/script>')[0];
+		if(i==fo)
+			eval(script+'$(\'#fo-btn-weibo\').setAttribute(\'rid\','+fm.rid+')');
+		else
+			eval(script);
 	});
 };
 $.j('i/dm.js?h=<?php fileHash('i/dm.js'); ?>');
