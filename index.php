@@ -10,7 +10,7 @@ with(location){if(protocol=='https:'||search){/*href='http://itorr.sinaapp.com/f
 <!-- <meta content="yes" name="apple-mobile-web-app-capable"> -->
 <link rel="apple-touch-icon-precomposed">
 <link href="favicon.ico" rel="shortcut icon">
-<link rel="stylesheet" type="text/css" href="i/style.css?<?php echo filemtime('./i/style.css'); ?>">
+<link rel="stylesheet" type="text/css" href="i/style.css?v=<?php echo filemtime('./i/style.css'); ?>">
 <div id="box">
 	<div class="cover">
 		<img class="h">
@@ -42,7 +42,7 @@ with(location){if(protocol=='https:'||search){/*href='http://itorr.sinaapp.com/f
 		<b><span></span><i></i></b>
 	</div>
 </div>
-<script src="i/itorr.m.js"></script>
+<script src="i/itorr.m.js?v=<?php echo filemtime('./i/itorr.m.js'); ?>"></script>
 <script>
 String.prototype.enTxt=function(){
 	return this.replace(/(^\s*)|(\s*$)/g,'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/ /g,'&nbsp;').replace(/\'/g,'&#39;').replace(/\"/g,'&quot;')
@@ -189,7 +189,7 @@ fm=function(win,doc){
 			A.currentTime+=i*5;
 		}
 	};
-	$.j('i/plan.js');
+	$.j('i/plan.js?v=<?php echo filemtime('./i/plan.js'); ?>');
 	$('#play').onclick=function(){
 		if(A.paused){
 			A.play();
@@ -253,29 +253,29 @@ fm=function(win,doc){
 	console.log('「偷揉FM v7」<http://github.com/itorr/itorr.fm> @卜卜口 于 2015/5/23');
 	return fm;
 }(window,document);
-var evalHtml=function(i){
-	x('i/'+i+'.html',function(H){
+var evalHtml=function(i,flag){
+	x('i/'+i+'.html?v='+flag,function(H){
 		var div=$.D.m('div');
 		div.innerHTML=H;
 		$.D.a(div);
 		eval(H.split('<script>')[1].split('<\/script>')[0]);
 	});
 };
-$.j('i/dm.js');
-$.j('i/lrc.js');
-$.j('i/u.js');
-evalHtml('search');
+$.j('i/dm.js?v=<?php echo filemtime('./i/dm.js'); ?>');
+$.j('i/lrc.js?v=<?php echo filemtime('./i/lrc.js'); ?>');
+$.j('i/u.js?v=<?php echo filemtime('./i/u.js'); ?>');
+evalHtml('search',<?php echo filemtime('./i/search.html'); ?>);
 setTimeout(function(){
-	$.lcss('i/star.css');
-	evalHtml('fo');
-	evalHtml('key');
-	evalHtml('menu');
-	evalHtml('volume');
-	evalHtml('rid');
-	$.j('i/hotkey.js');
-	$.j('i/crop.js');
+	$.lcss('i/star.css?v=<?php echo filemtime('./i/star.css'); ?>');
+	evalHtml('fo',<?php echo filemtime('./i/fo.html'); ?>);
+	evalHtml('key',<?php echo filemtime('./i/key.html'); ?>);
+	evalHtml('menu',<?php echo filemtime('./i/menu.html'); ?>);
+	evalHtml('volume',<?php echo filemtime('./i/volume.html'); ?>);
+	evalHtml('rid',<?php echo filemtime('./i/rid.html'); ?>);
+	$.j('i/hotkey.js?v=<?php echo filemtime('./i/hotkey.js'); ?>');
+	$.j('i/crop.js?v=<?php echo filemtime('./i/crop.js'); ?>');
 	$.j('//1.mouto.org/x.js');
-	$.j('i/fastclick.m.js',function(){
+	$.j('i/fastclick.m.js?v=<?php echo filemtime('./i/fastclick.m.js'); ?>',function(){
 		FastClick.attach(document.body);
 	});
 },1000);
