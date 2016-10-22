@@ -278,20 +278,20 @@ $.j('i/lrc.js?h=<?php fileHash('i/lrc.js'); ?>');
 /*i/lrc.js?h=<?php fileHash('i/lrc.js'); ?>*/
 $.j('i/u.js?h=<?php fileHash('i/u.js'); ?>');
 /*i/u.js?h=<?php fileHash('i/u.js'); ?>*/
-evalHtml('search',<?php fileHash('i/search.html'); ?>);
+evalHtml('search','<?php fileHash('i/search.html'); ?>');
 /*i/search.html?h=<?php fileHash('i/search.html'); ?>*/
 setTimeout(function(){
 	$.lcss('i/star.css?h=<?php fileHash('i/star.css'); ?>');
 	/*i/star.css?h=<?php fileHash('i/star.css'); ?>*/
-	evalHtml('fo',<?php fileHash('i/fo.html'); ?>);
+	evalHtml('fo','<?php fileHash('i/fo.html'); ?>');
 	/*i/fo.html?h=<?php fileHash('i/fo.html'); ?>*/
-	evalHtml('key',<?php fileHash('i/key.html'); ?>);
+	evalHtml('key','<?php fileHash('i/key.html'); ?>');
 	/*i/key.html?h=<?php fileHash('i/key.html'); ?>*/
-	evalHtml('menu',<?php fileHash('i/menu.html'); ?>);
+	evalHtml('menu','<?php fileHash('i/menu.html'); ?>');
 	/*i/menu.html?h=<?php fileHash('i/menu.html'); ?>*/
-	evalHtml('volume',<?php fileHash('i/volume.html'); ?>);
+	evalHtml('volume','<?php fileHash('i/volume.html'); ?>');
 	/*i/volume.html?h=<?php fileHash('i/volume.html'); ?>*/
-	evalHtml('rid',<?php fileHash('i/rid.html'); ?>);
+	evalHtml('rid','<?php fileHash('i/rid.html'); ?>');
 	/*i/rid.html?h=<?php fileHash('i/rid.html'); ?>*/
 	$.j('i/hotkey.js?h=<?php fileHash('i/hotkey.js'); ?>');
 	/*i/hotkey.js?h=<?php fileHash('i/hotkey.js'); ?>*/
