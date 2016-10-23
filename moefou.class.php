@@ -1,6 +1,6 @@
 <?php
 /**
- * 萌否电台
+ * Class MoefouOAuth
  */
 class MoefouOAuth{
 	const VERSION = '0.1.1';
@@ -268,6 +268,10 @@ class MoefouOAuth{
 		return $multipartbody;
 	}
 }
+
+/**
+ * Class MoeFM
+ */
 class MoeFM{
 	const VERSION = '0.1.1';
 	public $oauth;

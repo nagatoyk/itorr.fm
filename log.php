@@ -1,15 +1,18 @@
 <?php
 require 'moefou.class.php';
 require '../x/mysql.class.php';
-$pid = (int) $_POST['pid'];
-$rid = (int) $_POST['rid'];
-if($pid > 0){
+//$pid = $_POST['pid'];
+//$rid = $_POST['rid'];
+if(!empty($_POST['pid'])){
+    $rid = (int) $_POST['rid'];
+    $pid = (int) $_POST['pid'];
 	if($rid == 11){
-		$sql->runSql("UPDATE imouto_music SET play=play+1 WHERE sid='$pid'");
+		$sql->runSql("UPDATE imouto_music SET play=play+1 WHERE sid={$pid}");
 	}
-	$data = $sql->getLine("SELECT * FROM imouto_playcount WHERE pid='$pid'");
+	$data = $sql->getLine("SELECT * FROM imouto_playcount WHERE pid={$pid}");
 	if($data){
-		$sql->runSql("UPDATE imouto_playcount SET pcount=pcount+1 WHERE pid='$pid'");
+	    $modified=time();
+		$sql->runSql("UPDATE imouto_playcount SET pcount=pcount+1 AND modified={$modified} WHERE pid='$pid'");
 		$r = array(
 			'id'=>$data['id'],
 			'pid'=>$pid,
@@ -17,7 +20,8 @@ if($pid > 0){
 			'count'=>($data['pcount'] + 1)
 		);
 	}else{
-		$sql->runSql("INSERT INTO imouto_playcount (`pid`,`rid`,`pcount`) VALUES ('$pid','$rid',1)");
+	    $time=time();
+		$sql->runSql("INSERT INTO imouto_playcount (`pid`,`rid`,`pcount`,`created`,`modified`) VALUES ({$pid},{$rid},1,{$time},{$time})");
 		$r = array(
 			'id'=>$sql->lastId(),
 			'pid'=>$pid,
