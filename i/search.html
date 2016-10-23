@@ -1,107 +1,306 @@
-<style>#s-box{position:absolute;position:fixed;top:0;left:0;bottom:0;right:0;z-index:4;background:#222;background:rgba(0,0,0,.9);transition:opacity .3s ease;opacity:1}#s-box.h{opacity:0;pointer-events:none}#s-box:before{content:'';position:absolute;left:0;right:0;top:0;height:150px;pointer-events:none;background:linear-gradient(rgba(10,10,10,.95) 0,rgba(10,10,10,.3) 50%,rgba(10,10,10,0) 100%);z-index:1}.close{position:absolute;z-index:1;font:bold 3em/1 Arial;width:1em;text-align:center;color:#FFF;cursor:pointer;opacity:.5}#s-box .close{top:14px;left:14px}.close:hover{opacity:.7}#s{min-width:340px;width:50%;margin:2em auto;position:relative}#s input{border:0;margin:0;font-size:24px;line-height:34px;background:0;border-radius:.3em;width:100%;padding:7px 7px 7px 48px;background:#EEE;text-align:left;position:relative;z-index:1;display:block;-webkit-appearance:none;transition:.3s ease;-moz-box-sizing:border-box;box-sizing:border-box;outline:0}#s button{position:absolute;z-index:1;left:0;top:0;border:0;margin:0;padding:4px;-webkit-appearance:none;background:0;cursor:pointer}#s button svg{width:40px;height:40px}#su{display:block;text-align:center;overflow-y:auto;-webkit-overflow-scrolling:touch;position:absolute;top:0;left:0;bottom:0;right:0;padding:120px 0;-moz-box-sizing:border-box;box-sizing:border-box}#su li{width:300px;min-height:100px;padding-left:100px;margin:1em;text-align:left;color:#FFF;position:relative;display:inline-block;vertical-align:top}#su .noL{width:500px}#su a{color:#FFF}#su img{position:absolute;left:0;top:0;width:80px;height:80px;border-radius:50%;background:#222}#su h4{font-size:1.4em;line-height:1.1;padding:10px 0}#su p{opacity:.5}#showS{cursor:pointer;position:absolute;top:1em;left:1em;z-index:2}#showS svg{width:40px;height:40px}.s-banner{text-align:center;font-size:2em;color:#FFF;padding:2em}#su::-webkit-scrollbar-track-piece{background:#444}#su::-webkit-scrollbar{width:8px;height:8px}#su::-webkit-scrollbar-thumb{height:40px;background-color:#666}#su::-webkit-scrollbar-thumb:hover{background-color:#888}</style>
-<a id="showS"><svg viewBox="0 0 30 30"><path fill="#333" d="M24.806,23.424l-4.694-4.694c0.977-1.275,1.565-2.863,1.565-4.59c0-4.174-3.396-7.569-7.569-7.569 S6.539,9.966,6.539,14.14c0,4.173,3.396,7.569,7.569,7.569c1.727,0,3.315-0.588,4.59-1.565l4.694,4.694L24.806,23.424zM8.539,14.14c0-3.071,2.498-5.569,5.569-5.569s5.569,2.499,5.569,5.569s-2.498,5.569-5.569,5.569S8.539,17.211,8.539,14.14z"/></svg></a>
+<style>
+    #s-box {
+        position: absolute;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 4;
+        background: #222;
+        background: rgba(0, 0, 0, .9);
+        transition: opacity .3s ease;
+        opacity: 1
+    }
+
+    #s-box.h {
+        opacity: 0;
+        pointer-events: none
+    }
+
+    #s-box:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 150px;
+        pointer-events: none;
+        background: linear-gradient(rgba(10, 10, 10, .95) 0, rgba(10, 10, 10, .3) 50%, rgba(10, 10, 10, 0) 100%);
+        z-index: 1
+    }
+
+    .close {
+        position: absolute;
+        z-index: 1;
+        font: bold 3em/1 Arial;
+        width: 1em;
+        text-align: center;
+        color: #FFF;
+        cursor: pointer;
+        opacity: .5
+    }
+
+    #s-box .close {
+        top: 14px;
+        left: 14px
+    }
+
+    .close:hover {
+        opacity: .7
+    }
+
+    #s {
+        min-width: 340px;
+        width: 50%;
+        margin: 2em auto;
+        position: relative
+    }
+
+    #s input {
+        border: 0;
+        margin: 0;
+        font-size: 24px;
+        line-height: 34px;
+        background: 0;
+        border-radius: .3em;
+        width: 100%;
+        padding: 7px 7px 7px 48px;
+        background: #EEE;
+        text-align: left;
+        position: relative;
+        z-index: 1;
+        display: block;
+        -webkit-appearance: none;
+        transition: .3s ease;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        outline: 0
+    }
+
+    #s button {
+        position: absolute;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        border: 0;
+        margin: 0;
+        padding: 4px;
+        -webkit-appearance: none;
+        background: 0;
+        cursor: pointer
+    }
+
+    #s button svg {
+        width: 40px;
+        height: 40px
+    }
+
+    #su {
+        display: block;
+        text-align: center;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        padding: 120px 0;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box
+    }
+
+    #su li {
+        width: 300px;
+        min-height: 100px;
+        padding-left: 100px;
+        margin: 1em;
+        text-align: left;
+        color: #FFF;
+        position: relative;
+        display: inline-block;
+        vertical-align: top
+    }
+
+    #su .noL {
+        width: 500px
+    }
+
+    #su a {
+        color: #FFF
+    }
+
+    #su img {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: #222
+    }
+
+    #su h4 {
+        font-size: 1.4em;
+        line-height: 1.1;
+        padding: 10px 0
+    }
+
+    #su p {
+        opacity: .5
+    }
+
+    #showS {
+        cursor: pointer;
+        position: absolute;
+        top: 1em;
+        left: 1em;
+        z-index: 2
+    }
+
+    #showS svg {
+        width: 40px;
+        height: 40px
+    }
+
+    .s-banner {
+        text-align: center;
+        font-size: 2em;
+        color: #FFF;
+        padding: 2em
+    }
+
+    #su::-webkit-scrollbar-track-piece {
+        background: #444
+    }
+
+    #su::-webkit-scrollbar {
+        width: 8px;
+        height: 8px
+    }
+
+    #su::-webkit-scrollbar-thumb {
+        height: 40px;
+        background-color: #666
+    }
+
+    #su::-webkit-scrollbar-thumb:hover {
+        background-color: #888
+    }</style>
+<a id="showS">
+    <svg viewBox="0 0 30 30">
+        <path fill="#333"
+              d="M24.806,23.424l-4.694-4.694c0.977-1.275,1.565-2.863,1.565-4.59c0-4.174-3.396-7.569-7.569-7.569 S6.539,9.966,6.539,14.14c0,4.173,3.396,7.569,7.569,7.569c1.727,0,3.315-0.588,4.59-1.565l4.694,4.694L24.806,23.424zM8.539,14.14c0-3.071,2.498-5.569,5.569-5.569s5.569,2.499,5.569,5.569s-2.498,5.569-5.569,5.569S8.539,17.211,8.539,14.14z"/>
+    </svg>
+</a>
 <div id="s-box" class="h">
-	<span class="close" title="关闭">×</span>
-	<form id="s" action="x/?a=search">
-		<input name="k" required placeholder="输入关键字，进行搜索！">
-		<button type="submit"><svg viewBox="0 0 30 30"><path fill="#333" d="M24.806,23.424l-4.694-4.694c0.977-1.275,1.565-2.863,1.565-4.59c0-4.174-3.396-7.569-7.569-7.569 S6.539,9.966,6.539,14.14c0,4.173,3.396,7.569,7.569,7.569c1.727,0,3.315-0.588,4.59-1.565l4.694,4.694L24.806,23.424zM8.539,14.14c0-3.071,2.498-5.569,5.569-5.569s5.569,2.499,5.569,5.569s-2.498,5.569-5.569,5.569S8.539,17.211,8.539,14.14z"/></svg></button>
-	</form>
-	<div id="su"></div>
+    <span class="close" title="关闭">×</span>
+    <form id="s" action="x/?a=search">
+        <input name="k" required placeholder="输入关键字，进行搜索！">
+        <button type="submit">
+            <svg viewBox="0 0 30 30">
+                <path fill="#333"
+                      d="M24.806,23.424l-4.694-4.694c0.977-1.275,1.565-2.863,1.565-4.59c0-4.174-3.396-7.569-7.569-7.569 S6.539,9.966,6.539,14.14c0,4.173,3.396,7.569,7.569,7.569c1.727,0,3.315-0.588,4.59-1.565l4.694,4.694L24.806,23.424zM8.539,14.14c0-3.071,2.498-5.569,5.569-5.569s5.569,2.499,5.569,5.569s-2.498,5.569-5.569,5.569S8.539,17.211,8.539,14.14z"/>
+            </svg>
+        </button>
+    </form>
+    <div id="su"></div>
 </div>
 <script>
-!function(){
-	var rid=0,
-	g=$('#s-box');
-	$('#showS').onclick=function(){
-		rid=localStorage.getItem('rid')||0;
-		g.className='';
-		f.onfocus()
-	};
-	$('#s-box .close').onclick=function(){
-		g.className='h'
-	};
-	var j=$('#s'),i=$('#su'),f=j.k,e,h,d,b=0;
-	c=function(m,n){
-		h=x((rid>=11?j.action:'x/?a=search')+'&k='+encodeURIComponent(m)+'&start='+(n||0),function(s){
-			if(!s||s.length==0){
-				if(i.innerHTML.length<40||n==0)
-					l('没有找到相关内容，尝试更换关键词？');
-				else
-					a('没有更多了');
-				i.onscroll=null;
-				return
-			}
-			var q='';
-			for(var p=0,r;p<s.length;p++){
-				r=s[p];
-				if(!r.xid)
-					continue;
-				q+='<li><a href="javascript:void(0);" onclick="fm.rid='+rid+';location.hash=\'!'+r.xid+'\';"><img src="'+function(){
-					if(r.img.match(/^http:\/\//)){
-						return r.img
-					}else{
-						return'http://img.xiami.net/images/album/'+r.img
-					}
-				}()+'"><h4>'+r.title+'</h4>			<p>「'+r.album_name+'」'+r.artist+'</p></a></li>'
-			}
-			if(n==0){
-				i.innerHTML='<ul>'+q+'</ul>'
-			}else{
-				var k=$.D.m('ul');
-				k.innerHTML=q;
-				$.D.a(i,k)
-			}
-			n+=s.length;
-			if(s.length<30){
-				a('没有更多了');
-				i.onscroll=null;
-				return
-			}
-			i.onscroll=function(){
-				if((i.scrollTop+i.clientHeight+400)>i.scrollHeight){
-					i.onscroll=null;
-					c(m,n)
-				}
-			}
-		})
-	},
-	l=function(k){
-		i.innerHTML='<p class="s-banner">'+k+'</p>'
-	},
-	a=function(m){
-		var k=$.D.m('p');
-		k.className='s-banner';
-		k.innerHTML=m;
-		$.D.a(i,k)
-	};
-	f.onfocus=f.onchange=f.onkeypress=f.onkeyup=function(){
-		if(f.value==e)
-			return;
-		if(h)
-			h.abort();
-		e=f.value;
-		clearTimeout(d);
-		d=setTimeout(function(){
-			b=0;
-			c(e,b)
-		},200)
-	};
-	f.onkeydown=function(k){
-		if(k&&k.stopPropagation){
-			k.stopPropagation()
-		}else{
-			window.event.cancelBubble=true
-		}
-	};
-	j.onsubmit=function(){
-		f.onfocus();
-		return false
-	};
-	i.ontouchmove=function(k){
-		k.stopPropagation()
-	};
-	i.onmousewheel=function(k){
-		k.stopPropagation()
-	}
-}();
+    !function () {
+        var rid = 0,
+                g = $('#s-box');
+        $('#showS').onclick = function () {
+            rid = localStorage.getItem('rid') || 0;
+            g.className = '';
+            f.onfocus()
+        };
+        $('#s-box .close').onclick = function () {
+            g.className = 'h'
+        };
+        var j = $('#s'), i = $('#su'), f = j.k, e, h, d, b = 0;
+        c = function (m, n) {
+            h = x((rid >= 11 ? j.action : 'x/?a=search') + '&k=' + encodeURIComponent(m) + '&start=' + (n || 0), function (s) {
+                if (!s || s.length == 0) {
+                    if (i.innerHTML.length < 40 || n == 0)
+                        l('没有找到相关内容，尝试更换关键词？');
+                    else
+                        a('没有更多了');
+                    i.onscroll = null;
+                    return
+                }
+                var q = '';
+                for (var p = 0, r; p < s.length; p++) {
+                    r = s[p];
+                    if (!r.xid)
+                        continue;
+                    q += '<li><a href="javascript:void(0);" onclick="fm.rid=' + rid + ';location.hash=\'!' + r.xid + '\';"><img src="' + function () {
+                                if (r.img.match(/^http:\/\//)) {
+                                    return r.img
+                                } else {
+                                    return 'http://img.xiami.net/images/album/' + r.img
+                                }
+                            }() + '"><h4>' + r.title + '</h4>			<p>「' + r.album_name + '」' + r.artist + '</p></a></li>'
+                }
+                if (n == 0) {
+                    i.innerHTML = '<ul>' + q + '</ul>'
+                } else {
+                    var k = $.D.m('ul');
+                    k.innerHTML = q;
+                    $.D.a(i, k)
+                }
+                n += s.length;
+                if (s.length < 30) {
+                    a('没有更多了');
+                    i.onscroll = null;
+                    return
+                }
+                i.onscroll = function () {
+                    if ((i.scrollTop + i.clientHeight + 400) > i.scrollHeight) {
+                        i.onscroll = null;
+                        c(m, n)
+                    }
+                }
+            })
+        },
+                l = function (k) {
+                    i.innerHTML = '<p class="s-banner">' + k + '</p>'
+                },
+                a = function (m) {
+                    var k = $.D.m('p');
+                    k.className = 's-banner';
+                    k.innerHTML = m;
+                    $.D.a(i, k)
+                };
+        f.onfocus = f.onchange = f.onkeypress = f.onkeyup = function () {
+            if (f.value == e)
+                return;
+            if (h)
+                h.abort();
+            e = f.value;
+            clearTimeout(d);
+            d = setTimeout(function () {
+                b = 0;
+                c(e, b)
+            }, 200)
+        };
+        f.onkeydown = function (k) {
+            if (k && k.stopPropagation) {
+                k.stopPropagation()
+            } else {
+                window.event.cancelBubble = true
+            }
+        };
+        j.onsubmit = function () {
+            f.onfocus();
+            return false
+        };
+        i.ontouchmove = function (k) {
+            k.stopPropagation()
+        };
+        i.onmousewheel = function (k) {
+            k.stopPropagation()
+        }
+    }();
 </script>
