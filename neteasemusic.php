@@ -1,6 +1,9 @@
 <?php
 /**
  * Created by PhpStorm.
+ * User: misaka
+ * Date: 2016-10-24
+ * Time: 11:10
  */
 error_reporting('E_ALL');
 require '../x/mysql.class.php';

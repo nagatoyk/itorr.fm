@@ -6,10 +6,14 @@
  * Date: 2016-10-23
  * Time: 22:21
  */
+
+/**
+ * Class NeteaseMusic
+ */
 class NeteaseMusic
 {
     /**
-     *
+     * refer
      */
     const refer = 'http://music.163.com/';
 

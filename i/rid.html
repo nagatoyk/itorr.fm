@@ -136,7 +136,6 @@
 <script>
     window.setRid = function (doc) {
         var o = document.getElementById('sR'),
-                rid = localStorage.getItem('rid') || 0,
                 body = document.body,
                 R = [
                     {
@@ -186,7 +185,21 @@
                     body.style.cssText = ''
                 },
                 show = function () {
-                    body.style.cssText = '-webkit-transform:translateX(350px);transform:translateX(350px);/*left:350px;*/'
+                    body.style.cssText = '-webkit-transform:translateX(350px);transform:translateX(350px);/*left:350px;*/';
+                    var h = '';
+                    for (var i = 0; i < R.length; i++)
+                        h += '<li onclick="setRid(' + i + ')"><b style="background-image:url(img/r/' + i + '.jpg)"></b><h4>' + R[i].title + '</h4></li>';
+                    o.getElementsByTagName('span')[0].onclick = hide;
+                    o.getElementsByTagName('ul')[0].innerHTML = h;
+                    var rid = parseInt(localStorage.getItem('rid') || 0);
+                    var oldRLi;
+                    var Rli = o.getElementsByTagName('li');
+                    oldRLi = Rli[rid];
+                    oldRLi.className = 'a';
+                    o.onmousewheel =
+                            o.ontouchmove = function (e) {
+                                e.stopPropagation()
+                            };
                 },
                 cut = function () {
                     if (body.style.cssText)
@@ -195,20 +208,6 @@
                         show();
                 };
         document.getElementById('btn-sR').onclick = cut;
-        for (var h = '', i = 0; i < R.length; i++) {
-            h += '<li onclick="setRid(' + i + ')"><b style="background-image:url(img/r/' + i + '.jpg)"></b><h4>' + R[i].title + '</h4></li>'
-        }
-        o.getElementsByTagName('span')[0].onclick = hide;
-        o.getElementsByTagName('ul')[0].innerHTML = h;
-        var rid = parseInt(localStorage.getItem('rid') || 0);
-        var oldRLi;
-        var Rli = o.getElementsByTagName('li');
-        oldRLi = Rli[rid];
-        oldRLi.className = 'a';
-        o.onmousewheel =
-                o.ontouchmove = function (e) {
-                    e.stopPropagation()
-                };
         if (window.fm)
             fm.rid = rid;
         var setRid = function (rid) {

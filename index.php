@@ -91,9 +91,8 @@ function fileHash($filename)
                     return _n
                 },
                 add = function (i) {
-                    x((fm.rid < 11 ? 'x/?a=radio&rid=' : 'music.163.php?a=radio&rid=') + fm.rid + '&_r=' + Math.random(), function (r) {
+                    x((fm.rid < 11 ? 'x/?a=radio&rid=' : 'neteasemusic.php?a=radio&rid=') + fm.rid + '&_r=' + Math.random(), function (r) {
                         for (var l = r.length, i = 0; i < l; i++) {
-                            /*list=list.concat(r);*/
                             list[r[i].xid] = r[i];
                             playList.push(r[i].xid)
                         }
@@ -105,7 +104,6 @@ function fileHash($filename)
                         } else {
                             $('#ctrl').className = ''
                         }
-                        /*if(!run)fm.play(list[playList[0]]);*/
                         if (!run)fm.next()
                     })
                 },
@@ -130,9 +128,8 @@ function fileHash($filename)
                             _img.src = vvv;
                             $('[rel="shortcut icon"]').href = $('[rel="apple-touch-icon-precomposed"]').href = vvv
                         }
-                        /*.replace(/_(3|2|1)\./,'_4.');*/
                         $('h1').innerHTML = document.title = M.title;
-                        $('p').innerHTML = M.artist/*+(M.lrc||'')*/;
+                        $('p').innerHTML = M.artist;
                         /*$('span').innerHTML=M.play;*/
                         A.src = _u(M.mp3);
                         /*new Image().src='http://www.mouto.org/down.php?did='+encodeURIComponent(A.src);*/
@@ -168,23 +165,23 @@ function fileHash($filename)
                     },
                     song: function (i) {
                         var f = function (r) {
-                            /*playList.push(r.xid);*/
                             fm.play(r)
                         };
                         if (list[i])
                             f(list[i]);
                         else
-                            x((fm.rid < 11 ? 'x/?a=song&id=' : 'music.163.php?a=song&id=') + i + '&_r=' + Math.random(), function (r) {
-                                if (r.error) {
-                                    alert(r.error);
-                                    return add()
-                                }
+                            x((fm.rid < 11 ? 'x/?a=song&id=' : 'neteasemusic.php?a=song&id=') + i + '&_r=' + Math.random(), function (r) {
+                                /*if (r.error) {
+                                 alert(r.error);
+                                 return add()
+                                 }*/
+                                if (r.length < 1)
+                                    return add();
                                 for (var l = r.length, i = 0; i < l; i++) {
                                     list[r[i].xid] = r[i];
                                     if (i != 0)
                                         playList.push(r[i].xid)
                                 }
-                                /*console.log(playList);*/
                                 f(r[0])
                             })
                     },
@@ -251,20 +248,23 @@ function fileHash($filename)
             if (UA.match(/ip(ad|hone)/i))
                 $('#play2').className = '';
             $('meta[name="viewport"]').content = UA.match(/ipad/i) ? 'width=1024,user-scalable=no,minimal-ui' : UA.match(/iphone/i) ? 'width=520,user-scalable=no,minimal-ui' : 'width=720';
-            var laHash = '简直惨惨惨OAQ', popstate = function () {
-                var lash = location.hash.substring(2);
-                if ('onhashchange' in win)
-                    win.onhashchange = popstate;
-                if (laHash == location.hash)
-                    return;
-                if (lash.match(/\&rid=[0-9]+/))
-                    localStorage.setItem('rid', lash.match(/\&rid=([0-9]+)/)[1]);
-                if (lash.match(/[0-9]{5,20}/))
-                    fm.song(lash);
-                else if (!run)
-                    add();
-                laHash = location.hash
-            };
+            var laHash = '简直惨惨惨OAQ',
+                popstate = function () {
+                    var lash = location.hash.substring(2);
+                    if ('onhashchange' in win)
+                        win.onhashchange = popstate;
+                    if (laHash == location.hash)
+                        return;
+                    if (lash.match(/^[0-9]{5,20}/) && lash.match(/\&rid=[0-9]+$/)) {
+                        fm.rid = lash.match(/\&rid=([0-9]+)/)[1];
+                        localStorage.setItem('rid', fm.rid);
+                        fm.song(lash.match(/^[0-9]{5,20}/))
+                    } else if (lash.match(/^[0-9]{5,20}/) && !lash.match(/\&rid=[0-9]+$/))
+                        fm.song(lash.match(/[0-9]{5,20}/));
+                    else if (!run)
+                        add();
+                    laHash = location.hash
+                };
             setTimeout(popstate, 100);
             if (!'onhashchange' in win)
                 setInterval(function () {
@@ -273,17 +273,16 @@ function fileHash($filename)
                         laHash = location.hash;
                     }
                 }, 100);
-            /*console.log('「偷揉FM v7」<http://itorr.sinaapp.com/fm/> @卜卜口 于 2014/8/24');*/
             console.log('「偷揉FM v7」<http://github.com/itorr/itorr.fm> @卜卜口 于 2015/5/23');
-            return fm;
+            return fm
         }(window, document);
     var evalHtml = function (i, hash) {
         x('i/' + i + '.html?h=' + hash, function (H) {
             var div = $.D.m('div');
             div.innerHTML = H;
             $.D.a(div);
-            eval(H.split('<script>')[1].split('<\/script>')[0]);
-        });
+            eval(H.split('<script>')[1].split('<\/script>')[0])
+        })
     };
     $.j('i/dm.js?h=<?php fileHash('i/dm.js'); ?>');
     $.j('i/lrc.js?h=<?php fileHash('i/lrc.js'); ?>');
@@ -301,6 +300,6 @@ function fileHash($filename)
         $.j('//1.mouto.org/x.js');
         $.j('i/fastclick.m.js?h=<?php fileHash('i/fastclick.m.js'); ?>', function () {
             FastClick.attach(document.body);
-        });
+        })
     }, 3e3);
 </script>

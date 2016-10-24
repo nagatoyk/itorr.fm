@@ -13,7 +13,7 @@ var lrc = function (obj) {
                 lrc_loading = 0;
                 rid = localStorage.getItem('rid') || 0;
                 /*console.log(rid);*/
-                x((rid < 11 ? 'x/?a=lrc&id=' : 'music.163.php?a=lrc&id=') + id, function (txt) {
+                x((rid < 11 ? 'x/?a=lrc&id=' : 'neteasemusic.php?a=lrc&id=') + id, function (txt) {
                     var txt_arr = txt.split('\n');
                     /*clearTimeout(interval);*/
                     obj.innerHTML = '';
