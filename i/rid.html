@@ -136,6 +136,9 @@
 <script>
     window.setRid = function (doc) {
         var o = document.getElementById('sR'),
+                rid = parseInt(localStorage.getItem('rid') || 0),
+                oldRLi,
+                Rli = o.getElementsByTagName('li'),
                 body = document.body,
                 R = [
                     {
@@ -177,7 +180,11 @@
                         title: '偶像大师'
                     },
                     {
-                        title: '站长喜欢的音乐',
+                        title: '虾米收藏',
+                        des: '虾米'
+                    },
+                    {
+                        title: '网易云收藏',
                         des: '网易云'
                     }
                 ],
@@ -192,8 +199,6 @@
                     o.getElementsByTagName('span')[0].onclick = hide;
                     o.getElementsByTagName('ul')[0].innerHTML = h;
                     var rid = parseInt(localStorage.getItem('rid') || 0);
-                    var oldRLi;
-                    var Rli = o.getElementsByTagName('li');
                     oldRLi = Rli[rid];
                     oldRLi.className = 'a';
                     o.onmousewheel =

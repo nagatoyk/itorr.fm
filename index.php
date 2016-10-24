@@ -90,17 +90,19 @@ function fileHash($filename)
                         _c.substr(i, 1) == '^' ? _n += '0' : _n += _c.substr(i, 1);
                     return _n
                 },
-                add = function (i) {
-                    x((fm.rid < 11 ? 'x/?a=radio&rid=' : 'neteasemusic.php?a=radio&rid=') + fm.rid + '&_r=' + Math.random(), function (r) {
+                add = function () {
+                    x('music.php?a=random&rid=' + fm.rid + '&_r=' + Math.random(), function (r) {
+                        console.log(r[0].xid);
                         for (var l = r.length, i = 0; i < l; i++) {
                             list[r[i].xid] = r[i];
                             playList.push(r[i].xid)
                         }
+                        console.log(playList);
                         if ($('#ctrl').className != 'h load') {
                             setTimeout(function () {
                                 $('#ctrl').className = '';
                             }, 3e3);
-                            $('#next').href = '#!' + playList[0]
+                            $('#next').href = '#!' + fm.rid + '/' + playList[0]
                         } else {
                             $('#ctrl').className = ''
                         }
@@ -109,7 +111,7 @@ function fileHash($filename)
                 },
                 fm = {
                     A: A,
-                    rid: 0,
+                    rid: parseInt(localStorage.getItem('rid') || 0),
                     clear: function () {
                         list = {};
                         playList = [];
@@ -140,7 +142,7 @@ function fileHash($filename)
                         if (win.dm)
                             dm.load(M.xid);
                         if (win.lrc)
-                            lrc.load(M.xid);
+                            lrc.load(M.xid, fm.rid);
                         /*判断当前是否喜欢这首曲子*/
                         if (win.U)
                             U.iflike(M.xid, function (r) {
@@ -153,7 +155,7 @@ function fileHash($filename)
                         setTimeout(function () {
                             if (playList.length) {
                                 $('#ctrl').className = '';
-                                $('#next').href = '#!' + playList[0]
+                                $('#next').href = '#!' + fm.rid + '/' + playList[0]
                             } else {
                                 $('#ctrl').className = 'h load'
                             }
@@ -163,20 +165,18 @@ function fileHash($filename)
                         if (playList.length < 3)
                             add()
                     },
-                    song: function (i) {
+                    song: function (rid, id) {
                         var f = function (r) {
                             fm.play(r)
                         };
-                        if (list[i])
-                            f(list[i]);
+                        if (list[id])
+                            f(list[id]);
                         else
-                            x((fm.rid < 11 ? 'x/?a=song&id=' : 'neteasemusic.php?a=song&id=') + i + '&_r=' + Math.random(), function (r) {
-                                /*if (r.error) {
-                                 alert(r.error);
-                                 return add()
-                                 }*/
-                                if (r.length < 1)
-                                    return add();
+                            x('music.php?a=song&s=' + (rid < 12 ? 'xiami' : 'netease') + '&id=' + id + '&_r=' + Math.random(), function (r) {
+                                if (r.error) {
+                                    alert(r.error);
+                                    return add(fm.rid)
+                                }
                                 for (var l = r.length, i = 0; i < l; i++) {
                                     list[r[i].xid] = r[i];
                                     if (i != 0)
@@ -185,13 +185,13 @@ function fileHash($filename)
                                 f(r[0])
                             })
                     },
-                    log: function (pid) {
-                        x('log.php', 'rid=' + fm.rid + '&pid=' + pid, function (r) {
+                    log: function (rid, pid) {
+                        x('music.php?a=log', 'rid=' + rid + '&pid=' + pid, function (r) {
                             console.log(r)
                         })
                     },
                     next: function () {
-                        fm.log(location.hash.match(/[\d]+/));
+                        fm.log(location.hash.match(/([\d]+)/)[1], location.hash.match(/\/([\d]+)/)[1]);
                         setTimeout(function () {
                             location.href = $('#next').href
                         }, 3e3)
@@ -208,7 +208,6 @@ function fileHash($filename)
                 console.log(e);
                 fm.next()
             };
-            fm.rid = localStorage.getItem('rid') || 0;
             $.j('i/plan.js?h=<?php fileHash('i/plan.js'); ?>');
             $('#play').onclick = function () {
                 if (A.paused) {
@@ -229,7 +228,7 @@ function fileHash($filename)
                 if (win.dm)
                     dm.send('like');
                 $('#like').className = 'a';
-                x('x/?a=like', 'xid=' + location.hash.match(/[\d]+/), function (r) {
+                x('x/?a=like', 'xid=' + location.hash.match(/\/[\d]+/), function (r) {
                     /*console.log(r);*/
                     if (r.error)
                         return alert(r.error);
@@ -255,12 +254,8 @@ function fileHash($filename)
                         win.onhashchange = popstate;
                     if (laHash == location.hash)
                         return;
-                    if (lash.match(/^[0-9]{5,20}/) && lash.match(/\&rid=[0-9]+$/)) {
-                        fm.rid = lash.match(/\&rid=([0-9]+)/)[1];
-                        localStorage.setItem('rid', fm.rid);
-                        fm.song(lash.match(/^[0-9]{5,20}/))
-                    } else if (lash.match(/^[0-9]{5,20}/) && !lash.match(/\&rid=[0-9]+$/))
-                        fm.song(lash.match(/[0-9]{5,20}/));
+                    if (lash.match(/[\d]+/) && lash.match(/\/[\d]+/))
+                        fm.song(lash.match(/([\d]+)/)[1], lash.match(/\/([\d]+)/)[1]);
                     else if (!run)
                         add();
                     laHash = location.hash

@@ -7,13 +7,12 @@ var lrc = function (obj) {
         offset = 0,
         lrc = {
             num: 0,
-            load: function (id) {
+            load: function (id, rid) {
                 obj.className = 'h';
                 clearTimeout(noLrcLtl);
                 lrc_loading = 0;
-                rid = localStorage.getItem('rid') || 0;
                 /*console.log(rid);*/
-                x((rid < 11 ? 'x/?a=lrc&id=' : 'neteasemusic.php?a=lrc&id=') + id, function (txt) {
+                x('music.php?a=lrc&s=' + (rid < 12 ? 'xiami' : 'netease') + '&id=' + id, function (txt) {
                     var txt_arr = txt.split('\n');
                     /*clearTimeout(interval);*/
                     obj.innerHTML = '';
