@@ -43,7 +43,7 @@ if ($_GET['a'] == 'random') {
     if ($_GET['rid'] > 0) {
         $w[] = 'aid="' . $_GET['rid'] . '"';
     }
-    $w = implode(' && ', $w);
+    $w = implode(' AND ', $w);
     if ($w) {
         $w = ' WHERE ' . $w;
     }
@@ -99,5 +99,6 @@ if ($_GET['a'] == 'random') {
 } elseif ($_GET['a'] == 'report') {
     $r = array('msg' => '错误报告提交成功!', 'p' => $_POST);
 }
-$_GET['a'] != 'lrc' ? header('Content-type: application/json;charset=utf-8') : header('Content-Type: text/plain;charset=utf-8');
+$ct = $_GET['a'] != 'lrc' ? 'application/json' : 'text/plain';
+header('Content-Type: ' . $ct . '; charset=utf-8');
 echo $_GET['a'] != 'lrc' ? json_encode($r) : $lrc;
