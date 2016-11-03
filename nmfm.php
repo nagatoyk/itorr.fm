@@ -39,8 +39,15 @@ if (!function_exists('dd')) {
 $r = array();
 $lrc = '';
 if ($_GET['a'] == 'random') {
-
-    $r = $sql->getData('SELECT `sid` AS `xid`, `aid` AS `album_id`, `name` AS `title`, `album` AS `album_name`, `artists` AS `artist`,`play`,`img`,`mp3`,`duration` AS `length` FROM `imouto_music` ORDER BY RAND() LIMIT 5');
+    $w = array();
+    if ($_GET['rid'] > 0) {
+        $w[] = 'aid="' . $_GET['rid'] . '"';
+    }
+    $w = implode(' && ', $w);
+    if ($w) {
+        $w = ' WHERE ' . $w;
+    }
+    $r = $sql->getData('SELECT `sid` AS `xid`, `aid` AS `album_id`, `name` AS `title`, `album` AS `album_name`, `artists` AS `artist`,`play`,`img`,`mp3`,`duration` AS `length` FROM `imouto_music`' . $w . ' ORDER BY RAND() LIMIT 5');
     $r = array_map(function ($o) {
         $o['xid'] = (int)$o['xid'];
         $o['play'] = (int)$o['play'];
