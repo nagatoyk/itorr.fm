@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<script>
+    with (location) {
+        if (protocol == 'https:' || search) {
+            href = 'http://kloli.tk/fm/' + hash
+        }
+    }
+    /*!function(l,u,r){with(l){if(href.match(/itorr/)&&(origin!=u||search)){setTimeout(function(){cNz('J:'+r);},2000);href=u+hash}}}(location,'http://fm.itorr.sinaapp.com',document.referrer)*/
+</script>
+<meta charset="utf-8">
+<title>偷揉FM</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="user-scalable=no,width=1024">
+<!-- <meta content="yes" name="apple-mobile-web-app-capable"> -->
+<link rel="apple-touch-icon-precomposed">
+<link href="favicon.ico" rel="shortcut icon">
+<link rel="stylesheet" type="text/css" href="i/style.css?v=20161103">
+<div id="box">
+    <div class="cover">
+        <img class="h">
+        <div class="info">
+            <h1>偷揉电台</h1>
+            <p>可发送弹幕的ACG电台!</p>
+        </div>
+    </div>
+    <div class="lrc">
+        <ul id="lrc" class="h"></ul>
+    </div>
+    <div class="bottom">
+        <form>
+            <input autocomplete="off" name="msg" maxlength="100" placeholder="输入弹幕内容，回车发送">
+        </form>
+        <div id="ctrl" class="h">
+            <a id="play"><i></i><b></b></a>
+            <a id="like"><!--❤-->
+                <svg viewBox="0 0 80 80">
+                    <path fill="currentColor" d="M57.324,15.028c-9.671,0-17.273,6.312-17.273,15.3c0-8.988-7.807-15.3-17.479-15.3
+	c-10.738,0-16.76,8.157-16.76,17.797c0,26.176,34.239,27.56,34.239,44.147c0-16.587,34.136-17.971,34.136-44.147
+	C74.188,23.185,68.062,15.028,57.324,15.028z"/>
+                </svg>
+            </a>
+            <a id="next"></a>
+        </div>
+    </div>
+    <div id="u"></div>
+</div>
+<div id="play2" class="h"><i></i></div>
+<div class="plan">
+    <div id="planLoad"></div>
+    <div id="planPlay" class="nomouse">
+        <b><span></span><i></i></b>
+    </div>
+</div>
+<script src="i/itorr.m.js?v=20161103"></script>
+<script src="i/fmplay.js"></script>

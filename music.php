@@ -92,7 +92,7 @@ if ($_GET['a'] == 'random') {
                 );
             }
         }
-    } elseif ($_GET['rid'] == 12) {
+    } elseif ($_GET['rid'] == 0) {
         $r = $sql->getData('SELECT `sid` AS `xid`, `aid` AS `album_id`, `name` AS `title`, `album` AS `album_name`, `artists` AS `artist`,`play`,`img`,`mp3`,`duration` AS `length` FROM `imouto_music` ORDER BY RAND() LIMIT 5');
         $r = array_map(function ($o) {
             $o['xid'] = (int)$o['xid'];
@@ -104,27 +104,27 @@ if ($_GET['a'] == 'random') {
             $o['album_name'] = htmlspecialchars_decode($o['album_name'], ENT_QUOTES);
             return $o;
         }, $r);
-    } elseif ($_GET['rid'] < 11) {
-        $r = json_decode(file_get_contents('http://itorr.sinaapp.com/fm/x/?a=radio&rid=' . $_GET['rid']));
+//    } elseif ($_GET['rid'] < 11) {
+//        $r = json_decode(file_get_contents('http://itorr.sinaapp.com/fm/x/?a=radio&rid=' . $_GET['rid']));
     }
 } elseif ($_GET['a'] == 'song') {
-    if ($_GET['s'] == 'xiami') {
-        $url = 'http://m.xiami.com/song/playlist/id/' . (int)$_GET['id'] . '?v=' . time();
-        $xml = get_xml($url);
-        $doc = new DOMDocument();
-        $doc->loadXML($xml);
-        $r[] = array(
-            'xid' => (int)$doc->getElementsByTagName('song_id')->item(0)->nodeValue,
-            'title' => htmlspecialchars_decode($doc->getElementsByTagName('title')->item(0)->nodeValue, ENT_QUOTES),
-            'img' => str_replace('http://img.xiami.net/images/album/', '', $doc->getElementsByTagName('album_pic')->item(0)->nodeValue),
-            'mp3' => $doc->getElementsByTagName('location')->item(0)->nodeValue,
-            'album_name' => htmlspecialchars_decode($doc->getElementsByTagName('album_name')->item(0)->nodeValue, ENT_QUOTES),
-            'artist' => htmlspecialchars_decode($doc->getElementsByTagName('artist')->item(0)->nodeValue, ENT_QUOTES),
-            'album_id' => (int)$doc->getElementsByTagName('album_id')->item(0)->nodeValue,
-            'length' => (float)$doc->getElementsByTagName('length')->item(0)->nodeValue,
-            'play' => get_count($sql, $doc->getElementsByTagName('song_id')->item(0)->nodeValue)
-        );
-    } elseif ($_GET['s'] == 'netease') {
+//    if ($_GET['s'] == 'xiami') {
+//        $url = 'http://m.xiami.com/song/playlist/id/' . (int)$_GET['id'] . '?v=' . time();
+//        $xml = get_xml($url);
+//        $doc = new DOMDocument();
+//        $doc->loadXML($xml);
+//        $r[] = array(
+//            'xid' => (int)$doc->getElementsByTagName('song_id')->item(0)->nodeValue,
+//            'title' => htmlspecialchars_decode($doc->getElementsByTagName('title')->item(0)->nodeValue, ENT_QUOTES),
+//            'img' => str_replace('http://img.xiami.net/images/album/', '', $doc->getElementsByTagName('album_pic')->item(0)->nodeValue),
+//            'mp3' => $doc->getElementsByTagName('location')->item(0)->nodeValue,
+//            'album_name' => htmlspecialchars_decode($doc->getElementsByTagName('album_name')->item(0)->nodeValue, ENT_QUOTES),
+//            'artist' => htmlspecialchars_decode($doc->getElementsByTagName('artist')->item(0)->nodeValue, ENT_QUOTES),
+//            'album_id' => (int)$doc->getElementsByTagName('album_id')->item(0)->nodeValue,
+//            'length' => (float)$doc->getElementsByTagName('length')->item(0)->nodeValue,
+//            'play' => get_count($sql, $doc->getElementsByTagName('song_id')->item(0)->nodeValue)
+//        );
+//    } elseif ($_GET['s'] == 'netease') {
         $id = (int)$_GET['id'];
         $r = $sql->getData("SELECT `sid` AS `xid`, `aid` AS `album_id`, `name` AS `title`, `album` AS `album_name`, `artists` AS `artist`,`play`,`img`,`mp3`,`duration` AS `length` FROM `imouto_music` WHERE `sid`={$id} LIMIT 1");
         $r = array_map(function ($o) {
@@ -137,7 +137,7 @@ if ($_GET['a'] == 'random') {
             $o['album_name'] = htmlspecialchars_decode($o['album_name'], ENT_QUOTES);
             return $o;
         }, $r);
-    }
+//    }
 } elseif ($_GET['a'] == 'lrc') {
     if ($_GET['s'] == 'xiami') {
         $lrc = file_get_contents('http://itorr.sinaapp.com/fm/x/?a=lrc&id=' . (int)$_GET['id']);

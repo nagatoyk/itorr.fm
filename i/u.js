@@ -25,7 +25,7 @@ var U = function (b) {
             },
             sss: function (e) {
                 if (e) {
-                    b.x('x/u.php', 'sss=' + e, function (f) {
+                    b.x('http://itorr.sinaapp.com/fm/x/u.php', 'sss=' + e, function (f) {
                         if (f.error)
                             return a.getsss();
                         a.me = f;
@@ -43,7 +43,7 @@ var U = function (b) {
                 location.href = c + 'login.html#!' + f
             },
             allike: function () {
-                b.x('x/?a=allike', function (h) {
+                b.x('http://itorr.sinaapp.com/fm/x/?a=allike', function (h) {
                     var f = {};
                     if (!h)
                         return a.likes = f;

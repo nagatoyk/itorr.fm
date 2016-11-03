@@ -7,29 +7,32 @@ var lrc = function (obj) {
         offset = 0,
         lrc = {
             num: 0,
-            load: function (id, rid) {
+            load: function (id) {
                 obj.className = 'h';
                 clearTimeout(noLrcLtl);
                 lrc_loading = 0;
                 /*console.log(rid);*/
-                x('music.php?a=lrc&s=' + (rid < 12 ? 'xiami' : 'netease') + '&id=' + id, function (txt) {
+                x('nmfm.php?a=lrc&id=' + id, function (txt) {
                     var txt_arr = txt.split('\n');
                     /*clearTimeout(interval);*/
                     obj.innerHTML = '';
                     lrc.num = 0;
                     lrc_arr = [];
-                    var _t_text, _time, _txt, h = '';
-                    var _offset;
+                    var _t_text,
+                        _time,
+                        _txt,
+                        h = '',
+                        _offset;
                     for (var i in txt_arr) {
-                        _time = txt_arr[i].match(/\[\d{2}:\d{2}((\.|\:)(\d{2}|\d{3}))\]/g);
+                        _time = txt_arr[i].match(/\[\d{2}:\d{2}((\.|\:)(\d{3}))\]/g);
                         _txt = txt_arr[i].replace(/\[([0-9:.]{5,8}|[0-9:.]{5,10})\]/g, '');
                         _offset = txt_arr[i].match(/\[offset\:(\d+)\]/);
                         if (_offset)
                             offset = _offset[1];
                         for (var _i in _time) {
                             _t_text = String(_time[_i]);
-                            var _t_time = (_t_text.match(/\[([0-9]{2})/)[1] + '') * 60 + (_t_text.match(/\:([0-9]{2})/)[1] + '') * 1 + (_t_text.match(/([\d]+)\]/)[1] + '') * 0.01666;
-                            /*console.log(_t_time);*/
+                            var _t_time = (_t_text.match(/\[[0-9]{2}/) + '').substr(1) * 60 + (_t_text.match(/\:[0-9]{2}/) + '').substr(1) * 1 + (_t_text.match(/[0-9]{3}\]/) + '').substr(0, 2) * 0.01666;
+                            console.log(_t_time);
                             lrc_arr.push([_t_time, _txt])
                         }
                     }
