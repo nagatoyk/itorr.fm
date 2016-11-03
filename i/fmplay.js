@@ -227,8 +227,8 @@ var x = function (arg) {
         console.log('「偷揉FM v7」<http://github.com/itorr/itorr.fm> @卜卜口 于 2015/5/23');
         return fm
     }(window, document);
-var evalHtml = function (i) {
-    $.x('i/' + i + '.html?v=' + Math.random(), function (H) {
+var evalHtml = function (i, t) {
+    $.x('i/' + i + '.' + (!t ? 'html' : 'php') + '?v=' + Math.random(), function (H) {
         var div = $.D.m('div');
         div.innerHTML = H;
         $.D.a(div);
@@ -245,7 +245,7 @@ setTimeout(function () {
     evalHtml('key');
     evalHtml('menu');
     evalHtml('volume');
-    // evalHtml('rid');
+    evalHtml('rid', 1);
     $.j('i/hotkey.js?v=' + Math.random());
     $.j('i/crop.js?v=' + Math.random());
     $.j('//1.mouto.org/x.js');

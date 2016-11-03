@@ -1,3 +1,21 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: misaka
+ * Date: 2016-11-3
+ * Time: 14:00
+ */
+require '../../x/mysql.class.php';
+$r = $sql->getData('SELECT ANY_VALUE(aid) aid,ANY_VALUE(album) album, ANY_VALUE(img) img FROM `imouto_music` GROUP BY `aid` ORDER BY `aid` DESC,RAND() LIMIT 10');
+$r = array_map(function ($o) {
+    $o['rid'] = $o['aid'];
+    unset($o['aid']);
+    $o['title'] = $o['album'];
+    unset($o['album']);
+    return $o;
+}, $r);
+$list = json_encode($r);
+?>
 <style>
     #sR .close {
         font: bold 40px/1 Arial;
@@ -51,6 +69,10 @@
         display: block;
         cursor: pointer;
         position: relative;
+        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     /*#sR{position:absolute;top:0;left:0;z-index:3;
@@ -135,114 +157,59 @@
 </div>
 <script>
     window.setRid = function (doc) {
-
-        var
-                o = document.getElementById('sR'),
-                rid = localStorage.getItem('rid') || 0,
-                body = document.body,
-                R = [
-                    {
-                        title: '�傑��球��',
-                        des: '���綣劫���ACG�球��',
-                    },
-                    {
-                        title: '箙��活�',
-                        des: '�ユ�������割�篋冴��篏��峨���罩������∝�翫���',
-                    },
-                    {
-                        title: '��篁� 綵�',
-                        des: '筝㊤�遵ぇ��篋�',
-                    },
-                    {
-                        title: '����',
-                        des: '����腮帥��2008綛�9����',
-                    },
-                    {
-                        title: '�遺�紊ф┨',
-                        des: '����腮帥��2008綛�9����',
-                    },
-                    {
-                        title: 'ClariS'
-                    },
-                    {
-                        title: '�丞嘘��自蕋�'
-                    },
-                    {
-                        title: '罌倶畿�沿�'
-                    },
-                    {
-                        title: '�九お'
-                    },
-                    {
-                        title: '腑�����'
-                    },
-                    {
-                        title: '�九�鎀у�'
-                    }
-                ], hide = function () {
-                    body.style.cssText = '';
-                }, show = function () {
-                    body.style.cssText = '-webkit-transform:translateX(350px);transform:translateX(350px);';
-                    /*left:350px;*/
-                }, cut = function () {
-                    if (body.style.cssText) {
-                        hide();
-                    } else {
-                        show();
-                    }
-                };
-
-
+        var o = document.getElementById('sR'),
+            rid = localStorage.getItem('rid') || 0,
+            body = document.body,
+            R = <?php echo $list; ?>,
+            hide = function () {
+                body.style.cssText = '';
+            },
+            show = function () {
+                body.style.cssText = '-webkit-transform:translateX(350px);transform:translateX(350px);';
+                /*left:350px;*/
+            },
+            cut = function () {
+                if (body.style.cssText) {
+                    hide()
+                } else {
+                    show()
+                }
+            };
         document.getElementById('btn-sR').onclick = cut;
-
-
         for (var h = '', i = 0; i < R.length; i++) {
-            h += '<li onclick="setRid(' + i + ')"><b style="background-image:url(img/r/' + i + '.jpg)"></b><h4>' + R[i].title + '</h4></li>'
+            h += '<li onclick="setRid(' + R[i].rid + ')"><b style="background-image:url(' + R[i].img + ');background-size:440px 188px"></b><h4>' + R[i].title + '</h4></li>'
         }
-
         o.getElementsByTagName('span')[0].onclick = hide;
         o.getElementsByTagName('ul')[0].innerHTML = h;
-
-
         var rid = parseInt(localStorage.getItem('rid') || 0);
-
         var oldRLi;
         var Rli = o.getElementsByTagName('li');
         oldRLi = Rli[rid];
-
         oldRLi.className = 'a';
-
         o.onmousewheel =
-                o.ontouchmove = function (e) {
-                    e.stopPropagation();
-                };
-
+            o.ontouchmove = function (e) {
+                e.stopPropagation()
+            };
         if (window.fm) {
-            fm.rid = rid;
+            fm.rid = rid
         }
-
         var setRid = function (rid) {
             hide();
-
-            if (fm.rid == rid)
-                return;
-
+            if (fm.rid == rid) {
+                return
+            }
             localStorage.setItem('rid', rid);
             oldRLi.className = '';
             Rli[rid].className = 'a';
-
-
             oldRLi = Rli[rid];
             if (window.fm) {
                 fm.rid = rid;
-                fm.clear();
-            } else
-                console.log(rid);
-
-
+                fm.clear()
+            } else {
+                console.log(rid)
+            }
         };
         setRid.cut = cut;
-
-        return setRid;
+        return setRid
     }(document);
 </script>
