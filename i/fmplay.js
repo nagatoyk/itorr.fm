@@ -31,7 +31,7 @@ var x = function (arg) {
                 return _n
             },
             add = function () {
-                x('nmfm.php?a=random&rid=' + fm.rid + '&_r=' + Math.random(), function (r) {
+                $.x('nmfm.php?a=random&rid=' + fm.rid + '&_r=' + Math.random(), function (r) {
                     console.log(r[0].xid);
                     for (var l = r.length, i = 0; i < l; i++) {
                         list[r[i].xid] = r[i];
@@ -74,9 +74,7 @@ var x = function (arg) {
                     }
                     $('h1').innerHTML = document.title = M.title;
                     $('p').innerHTML = M.artist;
-                    /*$('span').innerHTML=M.play;*/
                     A.src = _u(M.mp3);
-                    /*new Image().src='http://www.mouto.org/down.php?did='+encodeURIComponent(A.src);*/
                     A.play();
                     run = 1;
                     if (_img.complete) {
@@ -120,7 +118,7 @@ var x = function (arg) {
                     if (list[id]) {
                         f(list[id])
                     } else {
-                        x('nmfm.php?a=song&id=' + id + '&_r=' + Math.random(), function (r) {
+                        $.x('nmfm.php?a=song&id=' + id + '&_r=' + Math.random(), function (r) {
                             if (r.error) {
                                 alert(r.error);
                                 return add(fm.rid)
@@ -135,12 +133,11 @@ var x = function (arg) {
                     }
                 },
                 log: function (pid) {
-                    x('nmfm.php?a=log', 'pid=' + pid, function (r) {
+                    $.x('nmfm.php?a=log', 'pid=' + pid, function (r) {
                         console.log(r)
                     })
                 },
                 next: function () {
-                    fm.log(location.hash.match(/\d+/));
                     setTimeout(function () {
                         location.href = $('#next').href
                     }, 3e3)
@@ -155,7 +152,7 @@ var x = function (arg) {
             };
         fm.A.onerror = function (e) {
             console.log(e);
-            x('nmfm.php?a=report', 'type=' + e.type + '&timeStamp=' + e.timeStamp, function (g) {
+            $.x('nmfm.php?a=report', 'type=' + e.type + '&timeStamp=' + e.timeStamp, function (g) {
                 console.log(g)
             });
             fm.next()
@@ -183,13 +180,11 @@ var x = function (arg) {
                 dm.send('like')
             }
             $('#like').className = 'a';
-            x('x/?a=like', 'xid=' + location.hash.match(/\/[\d]+/), function (r) {
-                /*console.log(r);*/
+            $.x('x/?a=like', 'xid=' + location.hash.match(/\/[\d]+/), function (r) {
                 if (r.error) {
                     return alert(r.error)
                 }
-                /*$('#like').className='a'*/
-            });
+            })
         };
         $('img').onload = function () {
             this.className = ''
@@ -233,7 +228,7 @@ var x = function (arg) {
         return fm
     }(window, document);
 var evalHtml = function (i) {
-    x('i/' + i + '.html?v=' + Math.random(), function (H) {
+    $.x('i/' + i + '.html?v=' + Math.random(), function (H) {
         var div = $.D.m('div');
         div.innerHTML = H;
         $.D.a(div);
@@ -243,14 +238,14 @@ var evalHtml = function (i) {
 $.j('i/dm.js?v=' + Math.random());
 $.j('i/lrc.js?v=' + Math.random());
 $.j('i/u.js?v=' + Math.random());
-evalHtml('search');
+// evalHtml('search');
 setTimeout(function () {
     $.lcss('i/star.css?v=' + Math.random());
     evalHtml('fo');
     evalHtml('key');
     evalHtml('menu');
     evalHtml('volume');
-    evalHtml('rid');
+    // evalHtml('rid');
     $.j('i/hotkey.js?v=' + Math.random());
     $.j('i/crop.js?v=' + Math.random());
     $.j('//1.mouto.org/x.js');
