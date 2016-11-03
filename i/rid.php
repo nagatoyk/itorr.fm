@@ -23,11 +23,11 @@ $list = json_encode($r);
         position: absolute;
         z-index: 2;
         bottom: 14px;
-        left: 14px;
+        left: 14px
     }
 
     #sR .close:hover {
-        opacity: 1;
+        opacity: 1
     }
 
     #btn-sR {
@@ -35,17 +35,17 @@ $list = json_encode($r);
         bottom: 1em;
         left: 1em;
         opacity: .5;
-        cursor: pointer;
+        cursor: pointer
     }
 
     #btn-sR svg {
         height: 40px;
         width: 40px;
-        display: block;
+        display: block
     }
 
     #btn-sR:hover {
-        opacity: 1;
+        opacity: 1
     }
 
     #sR {
@@ -62,7 +62,7 @@ $list = json_encode($r);
         font-size: 48px;
         background: #000;
         color: #FFF;
-        text-shadow: 1px 3px 0 rgba(0, 0, 0, .5);
+        text-shadow: 1px 3px 0 rgba(0, 0, 0, .5)
     }
 
     #sR li {
@@ -72,7 +72,7 @@ $list = json_encode($r);
         display: block;
         white-space: nowrap;
         overflow: hidden;
-        text-overflow: ellipsis;
+        text-overflow: ellipsis
     }
 
     /*#sR{position:absolute;top:0;left:0;z-index:3;
@@ -80,7 +80,7 @@ $list = json_encode($r);
         overflow-y:auto;-webkit-overflow-scrolling:touch;
         line-height:2em;font-size:80px;
         background:#111;background:rgba(0,0,0,.9);color:#FFF;
-        text-shadow:1px 3px 0 rgba(0,0,0,.5);}
+        text-shadow:1px 3px 0 rgba(0,0,0,.5)}
 
     #sR li{
         float:left;
@@ -88,7 +88,7 @@ $list = json_encode($r);
         cursor:pointer;
         position:relative;
         -moz-box-sizing:border-box;
-        box-sizing:border-box;
+        box-sizing:border-box
     }*/
     #sR ul li b {
         position: absolute;
@@ -98,12 +98,12 @@ $list = json_encode($r);
         height: 100%;
         background: no-repeat 50% 50%;
         background-size: cover;
-        opacity: .3;
+        opacity: .3
     }
 
     #sR ul li.a b,
     #sR ul li:hover b {
-        opacity: 1;
+        opacity: 1
     }
 
     #sR li.a:after {
@@ -113,35 +113,35 @@ $list = json_encode($r);
         top: 50%;
         margin-top: -15px;
         border: 15px solid rgba(0, 0, 0, 0);
-        border-left-color: #FFF;
+        border-left-color: #FFF
     }
 
     #sR li h4 {
         padding: 0 .5em;
         position: relative;
-        z-index: 1;
+        z-index: 1
     }
 
     /*@media(min-width:800px){
-        #sR li{width:49.98%;}
+        #sR li{width:49.98%}
     }
     @media(min-width:1600px){
-        #sR li{width:33.33%;}
+        #sR li{width:33.33%}
     }
     @media(min-width:2400px){
-        #sR li{width:25%;}
+        #sR li{width:25%}
     }*/
     body {
         transition: left .3s ease, -webkit-transform .3s ease;
-        transition: transform .3s ease;
+        transition: transform .3s ease
     }
 
     #btn-sR {
-        transition: .3s ease;
+        transition: .3s ease
     }
 
     #sR, #sR li, #sR li b {
-        transition: opacity .3s ease;
+        transition: opacity .3s ease
     }
 </style>
 <a id="btn-sR">
