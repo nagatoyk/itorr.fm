@@ -10,7 +10,7 @@ require 'NeteaseMusic.class.php';
 
 function get_count($sql, $pid)
 {
-    $c = $sql->getLine('SELECT `play` FROM `imouto_play` WHERE `pid` = ' . $pid);
+    $c = $sql->getLine('SELECT play FROM imouto_play WHERE pid = ' . $pid);
     return isset($c['play']) ? $c['play'] : 0;
 }
 
@@ -52,7 +52,7 @@ if ($_GET['a'] == 'random') {
         unset($r['code']);
         unset($r['album']);
     } else {
-        $r = $sql->getData('SELECT `sid` AS `xid`, `aid` AS `album_id`, `name` AS `title`, `album` AS `album_name`, `artists` AS `artist`,`play`,`img`,`mp3`,`duration` AS `length` FROM `imouto_music`' . $w . ' ORDER BY RAND() LIMIT 5');
+        $r = $sql->getData('SELECT sid AS xid, aid AS album_id,`name` AS title,album AS album_name, artists AS artist,img,mp3,duration AS `length` FROM imouto_music' . $w . ' ORDER BY RAND() LIMIT 5');
         $r = array_map(function ($o) {
             $o['xid'] = (int)$o['xid'];
             $o['play'] = (int)get_count($sql, $o['xid']);
@@ -66,7 +66,7 @@ if ($_GET['a'] == 'random') {
     }
 } elseif ($_GET['a'] == 'song') {
     $id = (int)$_GET['id'];
-    $r = $sql->getData("SELECT `sid` AS `xid`, `aid` AS `album_id`, `name` AS `title`, `album` AS `album_name`, `artists` AS `artist`,`play`,`img`,`mp3`,`duration` AS `length` FROM `imouto_music` WHERE `sid`={$id}");
+    $r = $sql->getData('SELECT sid AS xid, aid AS album_id, `name` AS title, album AS album_name, artists AS artist,img,mp3,duration AS `length`` FROM imouto_music WHERE sid='.$id);
     if (!$r) {
         $r = $music->get_music_info($id);
         foreach ($r['songs'] as $k => $v) {
@@ -100,9 +100,9 @@ if ($_GET['a'] == 'random') {
 } elseif ($_GET['a'] == 'lrc') {
     $id = (int)$_GET['id'];
     $lrc_info = $music->get_music_lyric($id);
-//        if(isset($lrc_info['lrc']['lyric'])){
-//            echo $lrc_info['lrc']['lyric'];
-//        }
+//    if (isset($lrc_info['lrc']['lyric'])) {
+//        echo $lrc_info['lrc']['lyric'];
+//    }
     if (isset($lrc_info['lyric'])) {
         $lrc = $lrc_info['lyric'];
     }
