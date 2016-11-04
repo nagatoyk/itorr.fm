@@ -32,37 +32,43 @@ $r = array();
 $lrc = '';
 if ($_GET['a'] == 'random') {
     $w = array();
-    $aid = isset($_COOKIE['aid']) ? $_COOKIE['aid'] : 0;
-    if ($aid > 0) {
+    if (isset($_COOKIE['aid'])) {
+        $aid = $_COOKIE['aid'];
         $r = $music->get_album_info($aid);
         $list = $r['album']['songs'];
         foreach ($list as $k => $v) {
             $r[] = array(
-                'xid' => (int)$v['id'],
+                'xid' => $v['id'],
                 'album_id' => $aid,
                 'title' => $v['name'],
                 'album_name' => $r['album']['name'],
                 'artist' => $music->artists($v['artists']),
-                'play' => (int)get_count($sql, $v['id']),
+                'play' => get_count($sql, $v['id']),
                 'img' => $r['album']['picUrl'],
                 'mp3' => $v['mp3Url'],
-                'length' => ($v['duration'] / 1000)
+                'length' => (int)($v['duration'] / 1000)
             );
         }
         unset($r['code']);
         unset($r['album']);
     } else {
-        $r = $sql->getData('SELECT sid AS xid, aid AS album_id,`name` AS title,album AS album_name, artists AS artist,img,mp3,duration AS `length` FROM imouto_music' . $w . ' ORDER BY RAND() LIMIT 5');
-        $r = array_map(function ($o) {
-            $o['xid'] = (int)$o['xid'];
-            $o['play'] = (int)get_count($sql, $o['xid']);
-            $o['length'] = (int)$o['length'];
-            $o['album_id'] = (int)$o['album_id'];
-            $o['title'] = htmlspecialchars_decode($o['title'], ENT_QUOTES);
-            $o['artist'] = htmlspecialchars_decode($o['artist'], ENT_QUOTES);
-            $o['album_name'] = htmlspecialchars_decode($o['album_name'], ENT_QUOTES);
-            return $o;
-        }, $r);
+        $r = $music->get_playlist_info(2660385);
+        $list = $r['result']['tracks'];
+        foreach ($list as $k => $v) {
+            $r[] = array(
+                'xid' => $v['id'],
+                'album_id' => $v['album']['id'],
+                'title' => $v['name'],
+                'album_name' => $v['album']['name'],
+                'artist' => $music->artists($v['artists']),
+                'play' => get_count($sql, $v['id']),
+                'img' => $v['album']['picUrl'],
+                'mp3' => $v['mp3Url'],
+                'length' => (int)($v['duration'] / 1000)
+            );
+        }
+        unset($r['code']);
+        unset($r['result']);
     }
 } elseif ($_GET['a'] == 'song') {
     $id = (int)$_GET['id'];
@@ -71,10 +77,10 @@ if ($_GET['a'] == 'random') {
         $r = $music->get_music_info($id);
         foreach ($r['songs'] as $k => $v) {
             $r[] = array(
-                'xid' => (int)$v['id'],
-                'play' => (int)get_count($sql, $v['id']),
-                'length' => (int)($v['duration'] / 1000),
-                'album_id' => (int)$v['album']['id'],
+                'xid' => $v['id'],
+                'play' => get_count($sql, $v['id']),
+                'length' => ($v['duration'] / 1000),
+                'album_id' => $v['album']['id'],
                 'album_name' => $v['album']['name'],
                 'title' => $v['name'],
                 'aitist' => $music->artists($v['artists']),
@@ -87,10 +93,10 @@ if ($_GET['a'] == 'random') {
         unset($r['songs']);
     } else {
         $r = array_map(function ($o) {
-            $o['xid'] = (int)$o['xid'];
-            $o['play'] = (int)$o['play'];
-            $o['length'] = (int)$o['length'];
-            $o['album_id'] = (int)$o['album_id'];
+            $o['xid'] = $o['xid'];
+            $o['play'] = $o['play'];
+            $o['length'] = $o['length'];
+            $o['album_id'] = $o['album_id'];
             $o['title'] = htmlspecialchars_decode($o['title'], ENT_QUOTES);
             $o['artist'] = htmlspecialchars_decode($o['artist'], ENT_QUOTES);
             $o['album_name'] = htmlspecialchars_decode($o['album_name'], ENT_QUOTES);
