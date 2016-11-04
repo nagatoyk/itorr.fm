@@ -72,6 +72,9 @@ var x = function (arg) {
                     }
                     $('h1').innerHTML = document.title = M.title;
                     $('p').innerHTML = M.artist;
+                    if (!M.mp3) {
+                        fm.next()
+                    }
                     A.src = _u(M.mp3);
                     A.play();
                     run = 1;

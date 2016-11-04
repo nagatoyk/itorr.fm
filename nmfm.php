@@ -54,8 +54,9 @@ if ($_GET['a'] == 'random') {
     } else {
         $r = $music->get_playlist_info(2660385);
         $list = $r['result']['tracks'];
+        $l = array();
         foreach ($list as $k => $v) {
-            $r[] = array(
+            $l[] = array(
                 'xid' => $v['id'],
                 'album_id' => $v['album']['id'],
                 'title' => $v['name'],
@@ -67,12 +68,15 @@ if ($_GET['a'] == 'random') {
                 'length' => (int)($v['duration'] / 1000)
             );
         }
+        foreach (array_rand($l, 5) as $k) {
+            $r[] = $l[$k];
+        }
         unset($r['code']);
         unset($r['result']);
     }
 } elseif ($_GET['a'] == 'song') {
     $id = (int)$_GET['id'];
-    $r = $sql->getData('SELECT sid AS xid, aid AS album_id, `name` AS title, album AS album_name, artists AS artist,img,mp3,duration AS `length`` FROM imouto_music WHERE sid='.$id);
+    $r = $sql->getData('SELECT sid AS xid, aid AS album_id, `name` AS title, album AS album_name, artists AS artist,img,mp3,duration AS `length` FROM imouto_music WHERE sid='.$id);
     if (!$r) {
         $r = $music->get_music_info($id);
         foreach ($r['songs'] as $k => $v) {
