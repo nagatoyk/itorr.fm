@@ -76,10 +76,10 @@ if ($_GET['a'] == 'random') {
     }
 } elseif ($_GET['a'] == 'song') {
     $id = (int)$_GET['id'];
-    $r = $sql->getData('SELECT sid AS xid, aid AS album_id, `name` AS title, album AS album_name, artists AS artist,img,mp3,duration AS `length` FROM imouto_music WHERE sid=' . $id);
+    $r = $sql->getData('SELECT * FROM imouto_music WHERE sid=' . $id);
     if (!$r) {
-        $r = $music->get_music_info($id);
-        foreach ($r['songs'] as $k => $v) {
+        $l = $music->get_music_info($id);
+        foreach ($l['songs'] as $k => $v) {
             $r[] = array(
                 'xid' => (int)$v['id'],
                 'play' => (int)get_count($sql, $v['id']),
@@ -96,17 +96,16 @@ if ($_GET['a'] == 'random') {
         unset($r['equalizers']);
         unset($r['songs']);
     } else {
-        foreach ($r as $k => $v) {
-            $r[] = array(
-                'xid' => (int)$v['xid'],
-                'play' => (int)get_count($sql, $id),
-                'length' => (int)$v['length'],
-                'album_id' => (int)$v['album_id'],
-                'title' => htmlspecialchars_decode($v['title'], ENT_QUOTES),
-                'artist' => htmlspecialchars_decode($v['artist'], ENT_QUOTES),
-                'album_name' => htmlspecialchars_decode($v['album_name'], ENT_QUOTES)
-            );
-        }
+        $r = array_map(function ($o) {
+            $o['xid'] = (int)$o['sid'];
+            $o['play'] = (int)$o['play'];
+            $o['length'] = (int)$o['duration'];
+            $o['album_id'] = (int)$o['aid'];
+            $o['title'] = htmlspecialchars_decode($o['name'], ENT_QUOTES);
+            $o['artist'] = htmlspecialchars_decode($o['artists'], ENT_QUOTES);
+            $o['album_name'] = htmlspecialchars_decode($o['album'], ENT_QUOTES);
+            return $o;
+        }, $r);
     }
 } elseif ($_GET['a'] == 'lrc') {
     $id = (int)$_GET['id'];
@@ -123,6 +122,9 @@ if ($_GET['a'] == 'random') {
             exit(json_encode(array('msg' => '恶意请求!')));
         }
         $pid = $_POST['pid'];
+        if ($sql->getLine('SELECT * FROM imouto_music WHERE sid=' . $pid)) {
+            $sql->runSql('UPDATE imouto_music SET play=play+1 WHERE sid=' . $pid);
+        }
         $r = $sql->getLine('SELECT * FROM imouto_play WHERE pid=' . $pid);
         if ($r) {
             $sql->runSql('UPDATE imouto_play SET play=play+1 WHERE pid=' . $pid);
