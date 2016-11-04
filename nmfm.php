@@ -77,7 +77,7 @@ if ($_GET['a'] == 'random') {
 } elseif ($_GET['a'] == 'song') {
     $id = (int)$_GET['id'];
     $r = $sql->getData('SELECT sid AS xid, aid AS album_id, `name` AS title, album AS album_name, artists AS artist,img,mp3,duration AS `length` FROM imouto_music WHERE sid=' . $id);
-    if ($r) {
+    if (!$r) {
         $r = $music->get_music_info($id);
         foreach ($r['songs'] as $k => $v) {
             $r[] = array(
