@@ -177,7 +177,7 @@ $list = json_encode($r);
             };
         document.getElementById('btn-sR').onclick = cut;
         for (var h = '', i = 0; i < R.length; i++) {
-            h += '<li onclick="setRid(' + R[i].rid + ')"><b style="background-image:url(' + R[i].img + ');background-size:440px 188px"></b><h4>' + R[i].title + '</h4></li>'
+            h += '<li onclick="setRid(' + i + ',' + R[i].rid + ')"><b style="background-image:url(' + R[i].img + ');background-size:440px 188px"></b><h4>' + R[i].title + '</h4></li>'
         }
         o.getElementsByTagName('span')[0].onclick = hide;
         o.getElementsByTagName('ul')[0].innerHTML = h;
@@ -193,12 +193,13 @@ $list = json_encode($r);
         if (window.fm) {
             fm.rid = rid
         }
-        var setRid = function (rid) {
+        var setRid = function (rid, aid) {
             hide();
             if (fm.rid == rid) {
                 return
             }
             localStorage.setItem('rid', rid);
+            $.cookie('aid', aid);
             oldRLi.className = '';
             Rli[rid].className = 'a';
             oldRLi = Rli[rid];

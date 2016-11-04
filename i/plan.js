@@ -67,5 +67,8 @@
          console.log('body');*/
         e.preventDefault()
     };
-    A.addEventListener('ended', fm.next, false)
+    A.addEventListener('ended', function () {
+        fm.log(location.hash.match(/\d+/));
+        fm.next()
+    }, false)
 }(fm, fm.A);

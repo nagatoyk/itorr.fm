@@ -31,13 +31,11 @@ var x = function (arg) {
                 return _n
             },
             add = function () {
-                $.x('nmfm.php?a=random&rid=' + fm.rid + '&_r=' + Math.random(), function (r) {
-                    console.log(r[0].xid);
+                $.x('nmfm.php?a=random&_r=' + Math.random(), function (r) {
                     for (var l = r.length, i = 0; i < l; i++) {
                         list[r[i].xid] = r[i];
                         playList.push(r[i].xid)
                     }
-                    console.log(playList);
                     if ($('#ctrl').className != 'h load') {
                         setTimeout(function () {
                             $('#ctrl').className = '';
@@ -108,6 +106,9 @@ var x = function (arg) {
                     console.log(fm.A);
                     /*如果待播放列表剩余不及3首 那么载入更多*/
                     if (playList.length < 3) {
+                        if ($.cookie('aid')) {
+                            $.cookie('aid', -10000)
+                        }
                         add()
                     }
                 },
@@ -152,7 +153,7 @@ var x = function (arg) {
             };
         fm.A.onerror = function (e) {
             console.log(e);
-            $.x('nmfm.php?a=report', 'type=' + e.type + '&timeStamp=' + e.timeStamp, function (g) {
+            $.x('nmfm.php?a=report', 'type=' + e.type + '&timeStamp=' + e.timeStamp + '&pid=' + location.hash.match(/\d+/) + '&name=' + document.title + '&mp3=' + fm.A.src, function (g) {
                 console.log(g)
             });
             fm.next()

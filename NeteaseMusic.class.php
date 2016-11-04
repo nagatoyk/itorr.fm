@@ -47,7 +47,7 @@ class NeteaseMusic
     public function get_playlist_info($playlist_id)
     {
         $url = 'http://music.163.com/api/playlist/detail?id=' . $playlist_id;
-        return self::http($url);
+        return json_decode(self::http($url), true);
     }
 
     /**
@@ -58,7 +58,7 @@ class NeteaseMusic
     public function get_music_info($music_id)
     {
         $url = 'http://music.163.com/api/song/detail/?id=' . $music_id . '&ids=%5B' . $music_id . '%5D';
-        return self::http($url);
+        return json_decode(self::http($url), true);
     }
 
     /**
@@ -70,7 +70,7 @@ class NeteaseMusic
     {
 //        $url = 'http://music.163.com/api/song/lyric?os=pc&id='.$music_id.'&lv=-1&kv=-1&tv=-1';
         $url = 'http://music.163.com/api/song/media?id=' . $music_id;
-        return self::http($url);
+        return json_decode(self::http($url), true);
     }
 
     /**
@@ -82,7 +82,7 @@ class NeteaseMusic
     public function get_artist_album($artist_id, $limit)
     {
         $url = 'http://music.163.com/api/artist/albums/' . $artist_id . '?limit=' . $limit;
-        return self::http($url);
+        return json_decode(self::http($url), true);
     }
 
     /**
@@ -93,7 +93,7 @@ class NeteaseMusic
     public function get_album_info($album_id)
     {
         $url = 'http://music.163.com/api/album/' . $album_id;
-        return self::http($url);
+        return json_decode(self::http($url), true);
     }
 
     /**
@@ -105,7 +105,7 @@ class NeteaseMusic
     public function get_mv_info($mvid, $type = 'mp4')
     {
         $url = 'http://music.163.com/api/mv/detail?id=' . $mvid . '&type=' . $type;
-        return self::http($url);
+        return json_decode(self::http($url), true);
     }
 
     /**
@@ -122,4 +122,5 @@ class NeteaseMusic
         return ltrim($name, ',');
     }
 }
+
 $music = new NeteaseMusic();
