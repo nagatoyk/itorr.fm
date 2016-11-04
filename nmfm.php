@@ -104,6 +104,12 @@ if ($_GET['a'] == 'random') {
             $o['title'] = htmlspecialchars_decode($o['name'], ENT_QUOTES);
             $o['artist'] = htmlspecialchars_decode($o['artists'], ENT_QUOTES);
             $o['album_name'] = htmlspecialchars_decode($o['album'], ENT_QUOTES);
+            unset($o['id']);
+            unset($o['artists']);
+            unset($o['duration']);
+            unset($o['aid']);
+            unset($o['name']);
+            unset($o['album']);
             return $o;
         }, $r);
     }
