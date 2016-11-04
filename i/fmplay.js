@@ -83,7 +83,7 @@ var x = function (arg) {
                         setTimeout(_img.onload, 10)
                     }
                     if (win.dm) {
-                        dm.load(M.xid)
+                        // dm.load(M.xid)
                     }
                     if (win.lrc) {
                         lrc.load(M.xid)
@@ -111,7 +111,7 @@ var x = function (arg) {
                     /*如果待播放列表剩余不及3首 那么载入更多*/
                     if (playList.length < 3) {
                         if ($.cookie('aid')) {
-                            $.cookie('aid', -10000)
+                            $.cookie('aid', -100000)
                         }
                         add()
                     }
@@ -126,7 +126,7 @@ var x = function (arg) {
                         $.x('nmfm.php?a=song&id=' + id + '&_r=' + Math.random(), function (r) {
                             if (r.error) {
                                 alert(r.error);
-                                return add(fm.rid)
+                                return add()
                             }
                             for (var l = r.length, i = 0; i < l; i++) {
                                 list[r[i].xid] = r[i];
@@ -196,7 +196,7 @@ var x = function (arg) {
         };
         $('.info p').onclick = function () {
             $('input[name="k"]').value = this.innerHTML;
-            $('#showS').click()
+            // $('#showS').click()
         };
         $('#play2').onclick = $('#play').onclick;
         var UA = navigator.userAgent;
