@@ -38,12 +38,12 @@ if ($_GET['a'] == 'random') {
         $list = $r['album']['songs'];
         foreach ($list as $k => $v) {
             $r[] = array(
-                'xid' => $v['id'],
-                'album_id' => $aid,
+                'xid' => (int)$v['id'],
+                'album_id' => (int)$aid,
                 'title' => $v['name'],
                 'album_name' => $r['album']['name'],
                 'artist' => $music->artists($v['artists']),
-                'play' => get_count($sql, $v['id']),
+                'play' => (int)get_count($sql, $v['id']),
                 'img' => $r['album']['picUrl'],
                 'mp3' => $v['mp3Url'],
                 'length' => (int)($v['duration'] / 1000)
@@ -57,12 +57,12 @@ if ($_GET['a'] == 'random') {
         $l = array();
         foreach ($list as $k => $v) {
             $l[] = array(
-                'xid' => $v['id'],
-                'album_id' => $v['album']['id'],
+                'xid' => (int)$v['id'],
+                'album_id' => (int)$v['album']['id'],
                 'title' => $v['name'],
                 'album_name' => $v['album']['name'],
                 'artist' => $music->artists($v['artists']),
-                'play' => get_count($sql, $v['id']),
+                'play' => (int)get_count($sql, $v['id']),
                 'img' => $v['album']['picUrl'],
                 'mp3' => $v['mp3Url'],
                 'length' => (int)($v['duration'] / 1000)
@@ -81,10 +81,10 @@ if ($_GET['a'] == 'random') {
         $r = $music->get_music_info($id);
         foreach ($r['songs'] as $k => $v) {
             $r[] = array(
-                'xid' => $v['id'],
-                'play' => get_count($sql, $v['id']),
-                'length' => ($v['duration'] / 1000),
-                'album_id' => $v['album']['id'],
+                'xid' => (int)$v['id'],
+                'play' => (int)get_count($sql, $v['id']),
+                'length' => (int)($v['duration'] / 1000),
+                'album_id' => (int)$v['album']['id'],
                 'album_name' => $v['album']['name'],
                 'title' => $v['name'],
                 'aitist' => $music->artists($v['artists']),
@@ -97,10 +97,10 @@ if ($_GET['a'] == 'random') {
         unset($r['songs']);
     } else {
         $r = array_map(function ($o) {
-            $o['xid'] = $o['xid'];
-            $o['play'] = $o['play'];
-            $o['length'] = $o['length'];
-            $o['album_id'] = $o['album_id'];
+            $o['xid'] = (int)$o['xid'];
+            $o['play'] = (int)get_count($sql, $o['xid']);
+            $o['length'] = (int)$o['length'];
+            $o['album_id'] = (int)$o['album_id'];
             $o['title'] = htmlspecialchars_decode($o['title'], ENT_QUOTES);
             $o['artist'] = htmlspecialchars_decode($o['artist'], ENT_QUOTES);
             $o['album_name'] = htmlspecialchars_decode($o['album_name'], ENT_QUOTES);
@@ -117,22 +117,25 @@ if ($_GET['a'] == 'random') {
         $lrc = $lrc_info['lyric'];
     }
 } elseif ($_GET['a'] == 'log') {
-    if (!empty($_POST)) {
-        $p = $_POST;
-        $r = $sql->getLine('SELECT * FROM imouto_play WHERE pid=' . $p['pid']);
+    if (!empty($_POST['pid'])) {
+        if(!preg_match('/^\d+$/', $_POST['pid'])){
+            exit(json_encode(array('msg'=>'恶意请求!')));
+        }
+        $pid = $_POST['pid'];
+        $r = $sql->getLine('SELECT * FROM imouto_play WHERE pid=' . $pid);
         if ($r) {
-            $sql->runSql('UPDATE imouto_play SET play=play+1 WHERE pid=' . $p['pid']);
+            $sql->runSql('UPDATE imouto_play SET play=play+1 WHERE pid=' . $pid);
             if ($sql->affectedRows()) {
                 $r = array(
-                    'pid' => $p['pid'],
+                    'pid' => $pid,
                     'msg' => '更新成功'
                 );
             }
         } else {
-            $sql->runSql('INSERT INTO imouto_play (pid,play) VALUES (' . $p['pid'] . ',1)');
+            $sql->runSql('INSERT INTO imouto_play (pid,play) VALUES (' . $pid . ',1)');
             if ($sql->lastId()) {
                 $r = array(
-                    'pid' => $p['pid'],
+                    'pid' => $pid,
                     'msg' => '插入成功'
                 );
             }
