@@ -199,7 +199,7 @@ $list = json_encode($r);
         }
         var setRid = function (rid, aid) {
             hide();
-            if (fm.rid == rid) {
+            if (fm.rid == rid && $.cookie('aid') == aid) {
                 return
             }
             localStorage.setItem('rid', rid);
