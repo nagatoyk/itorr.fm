@@ -6,7 +6,11 @@
  * Time: 14:00
  */
 require '../../x/mysql.class.php';
-$r = $sql->getData('SELECT ANY_VALUE(aid) aid,ANY_VALUE(album) album, ANY_VALUE(img) img FROM `imouto_music` GROUP BY `aid` ORDER BY `aid` DESC,RAND() LIMIT 10');
+if (getenv('OPENSHIFT_APP_NAME')) {
+    $r = $sql->getData('SELECT aid,album,img FROM `imouto_music` GROUP BY `aid` ORDER BY `aid` DESC,RAND() LIMIT 10');
+} else {
+    $r = $sql->getData('SELECT ANY_VALUE(aid) aid,ANY_VALUE(album) album, ANY_VALUE(img) img FROM `imouto_music` GROUP BY `aid` ORDER BY `aid` DESC,RAND() LIMIT 10');
+}
 $r = array_map(function ($o) {
     $o['rid'] = $o['aid'];
     unset($o['aid']);
