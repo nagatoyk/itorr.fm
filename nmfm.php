@@ -76,8 +76,8 @@ if ($_GET['a'] == 'random') {
     }
 } elseif ($_GET['a'] == 'song') {
     $id = (int)$_GET['id'];
-    $r = $sql->getData('SELECT sid AS xid, aid AS album_id, `name` AS title, album AS album_name, artists AS artist,img,mp3,duration AS `length` FROM imouto_music WHERE sid='.$id);
-    if (!$r) {
+    $r = $sql->getData('SELECT sid AS xid, aid AS album_id, `name` AS title, album AS album_name, artists AS artist,img,mp3,duration AS `length` FROM imouto_music WHERE sid=' . $id);
+    if ($r) {
         $r = $music->get_music_info($id);
         foreach ($r['songs'] as $k => $v) {
             $r[] = array(
@@ -96,16 +96,17 @@ if ($_GET['a'] == 'random') {
         unset($r['equalizers']);
         unset($r['songs']);
     } else {
-        $r = array_map(function ($o) {
-            $o['xid'] = (int)$o['xid'];
-            $o['play'] = (int)get_count($sql, $o['xid']);
-            $o['length'] = (int)$o['length'];
-            $o['album_id'] = (int)$o['album_id'];
-            $o['title'] = htmlspecialchars_decode($o['title'], ENT_QUOTES);
-            $o['artist'] = htmlspecialchars_decode($o['artist'], ENT_QUOTES);
-            $o['album_name'] = htmlspecialchars_decode($o['album_name'], ENT_QUOTES);
-            return $o;
-        }, $r);
+        foreach ($r as $k => $v) {
+            $r[] = array(
+                'xid' => (int)$v['xid'],
+                'play' => (int)get_count($sql, $id),
+                'length' => (int)$v['length'],
+                'album_id' => (int)$v['album_id'],
+                'title' => htmlspecialchars_decode($v['title'], ENT_QUOTES),
+                'artist' => htmlspecialchars_decode($v['artist'], ENT_QUOTES),
+                'album_name' => htmlspecialchars_decode($v['album_name'], ENT_QUOTES)
+            );
+        }
     }
 } elseif ($_GET['a'] == 'lrc') {
     $id = (int)$_GET['id'];
@@ -118,8 +119,8 @@ if ($_GET['a'] == 'random') {
     }
 } elseif ($_GET['a'] == 'log') {
     if (!empty($_POST['pid'])) {
-        if(!preg_match('/^\d+$/', $_POST['pid'])){
-            exit(json_encode(array('msg'=>'恶意请求!')));
+        if (!preg_match('/^\d+$/', $_POST['pid'])) {
+            exit(json_encode(array('msg' => '恶意请求!')));
         }
         $pid = $_POST['pid'];
         $r = $sql->getLine('SELECT * FROM imouto_play WHERE pid=' . $pid);
@@ -142,16 +143,18 @@ if ($_GET['a'] == 'random') {
         }
     }
 } elseif ($_GET['a'] == 'report') {
-    $p = $_POST;
-    $sql->runSql('INSERT INTO imouto_report (pid,title,msg) VALUES (' . $p['pid'] . ',\'' . $p['title'] . '\',\'' . serialize($_POST) . '\')');
-    if ($sql->lastId()) {
-        $r = array(
-            'msg' => '错误报告提交成功!'
-        );
-    } else {
-        $r = array(
-            'msg' => '错误报告已提交过了!'
-        );
+    if (!empty($_POST)) {
+        $p = $_POST;
+        $sql->runSql('INSERT INTO imouto_report (pid,title,msg) VALUES (' . $p['pid'] . ',\'' . $p['title'] . '\',\'' . serialize($_POST) . '\')');
+        if ($sql->lastId()) {
+            $r = array(
+                'msg' => '错误报告提交成功!'
+            );
+        } else {
+            $r = array(
+                'msg' => '错误报告已提交过了!'
+            );
+        }
     }
 }
 $ct = $_GET['a'] != 'lrc' ? 'application/json' : 'text/plain';
