@@ -31,7 +31,6 @@ if (!function_exists('dd')) {
 $r = array();
 $lrc = '';
 if ($_GET['a'] == 'random') {
-    $w = array();
     if (isset($_COOKIE['aid'])) {
         $aid = $_COOKIE['aid'];
         $r = $music->get_album_info($aid);
