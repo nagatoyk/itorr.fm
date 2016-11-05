@@ -105,8 +105,7 @@ $list = json_encode($r);
         opacity: .3
     }
 
-    #sR ul li.a b,
-    #sR ul li:hover b {
+    #sR ul li.a b, #sR ul li:hover b {
         opacity: 1
     }
 

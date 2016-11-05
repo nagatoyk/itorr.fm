@@ -25,8 +25,9 @@ var lrc = function (obj) {
                         _time = txt_arr[i].match(/\[\d{2}:\d{2}((\.|\:)(\d{3}))\]/g);
                         _txt = txt_arr[i].replace(/\[([0-9:.]{5,8}|[0-9:.]{5,10})\]/g, '');
                         _offset = txt_arr[i].match(/\[offset\:(\d+)\]/);
-                        if (_offset)
-                            offset = _offset[1];
+                        if (_offset) {
+                            offset = _offset[1]
+                        }
                         for (var _i in _time) {
                             _t_text = String(_time[_i]);
                             var _t_time = (_t_text.match(/\[[0-9]{2}/) + '').substr(1) * 60 + (_t_text.match(/\:[0-9]{2}/) + '').substr(1) * 1 + (_t_text.match(/[0-9]{3}\]/) + '').substr(0, 2) * 0.01666;

@@ -10,14 +10,17 @@
          console.log(A.buffered);
          $('#play2').className='h';
          console.log(fm.A.buffered.length);*/
-        if (A.buffered.length > 0)
-            planLoad.style.cssText += 'width:' + A.buffered.end(A.buffered.length - 1) / A.duration * 100 + '%';
-        if (mouse_down)
-            return;
+        if (A.buffered.length > 0) {
+            planLoad.style.cssText += 'width:' + A.buffered.end(A.buffered.length - 1) / A.duration * 100 + '%'
+        }
+        if (mouse_down) {
+            return
+        }
         planPlay.style.cssText += 'width:' + A.currentTime / A.duration * 100 + '%';
         planTime.innerHTML = function () {
-            if (!A.currentTime)
-                return '00:00';
+            if (!A.currentTime) {
+                return '00:00'
+            }
             var t = A.duration - A.currentTime,
                 m = Math.floor(t / 60),
                 s = Math.floor(t % 60);

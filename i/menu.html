@@ -14,36 +14,36 @@
         background: rgba(255, 255, 255, .97);
         box-shadow: 4px 4px 8px rgba(0, 0, 0, .15);
         border: 1px solid rgba(50, 50, 50, .2);
-        border-radius: 5px;
+        border-radius: 5px
     }
 
     #menu.h {
-        opacity: 0;
+        opacity: 0
     }
 
     #menu a {
         display: block;
         padding: 0 12px 0 20px;
-        cursor: pointer;
+        cursor: pointer
     }
 
     #menu a span {
         float: right;
         text-transform: capitalize;
         font-family: 'Courier New', 'Lucida Console', monospace;
-        font-weight: bold;
+        font-weight: bold
     }
 
     #menu a:hover {
         background: #37F;
         color: #FFF;
-        background: linear-gradient(#37F 0, #58F 8%, #37F 50%, #26F 92%, #04E 100%);
+        background: linear-gradient(#37F 0, #58F 8%, #37F 50%, #26F 92%, #04E 100%)
     }
 
     #menu hr {
         margin: 7px 1px;
         border: 0 none;
-        border-top: 1px solid #EEE;
+        border-top: 1px solid #EEE
     }
 </style>
 <div id="menu" class="h">
@@ -78,11 +78,13 @@
                     top = e.clientY,
                     left = e.clientX;
             var MaxLeft = o.offsetWidth + 15;
-            if (body.offsetWidth - left < MaxLeft)
-                left = body.offsetWidth - MaxLeft;
+            if (body.offsetWidth - left < MaxLeft) {
+                left = body.offsetWidth - MaxLeft
+            }
             var MaxTop = o.offsetHeight + 15;
-            if (body.offsetHeight - top < MaxTop)
-                top = body.offsetHeight - MaxTop;
+            if (body.offsetHeight - top < MaxTop) {
+                top = body.offsetHeight - MaxTop
+            }
             o.style.cssText = 'left:' + left + 'px;top:' + top + 'px;';
             o.className = '';
             doc.onclick = hideM;

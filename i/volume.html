@@ -14,7 +14,7 @@
         bakcground: rgba(0, 0, 0, .1);
         border-radius: 99em;
         pointer-events: none;
-        transition: opacity .3s ease;
+        transition: opacity .3s ease
     }
 
     #volume b {
@@ -25,11 +25,11 @@
         height: 40%;
         min-height: 30px;
         background: #999;
-        border-radius: 99em;
+        border-radius: 99em
     }
 
     #volume.h {
-        opacity: 0;
+        opacity: 0
     }
 </style>
 <div id="volume" class="h">
@@ -46,17 +46,21 @@
                 now = all,
                 T,
                 set = function (h) {
-                    if (!h)
-                        return;
-                    if (h < 10)
-                        h = 10;
-                    if (h > 1000)
-                        h = 1000;
+                    if (!h) {
+                        return
+                    }
+                    if (h < 10) {
+                        h = 10
+                    }
+                    if (h > 1000) {
+                        h = 1000
+                    }
                     now = h;
                     o.className = '';
                     b.style.cssText = 'height:' + now / all * 100 + '%';
-                    if (window.fm && fm.A)
-                        fm.A.volume = now / all;
+                    if (window.fm && fm.A) {
+                        fm.A.volume = now / all
+                    }
                     clearTimeout(T);
                     T = setTimeout(function () {
                         o.className = 'h'
@@ -67,8 +71,9 @@
             e.stopPropagation();
             e.preventDefault();
             var h;
-            if (e.wheelDelta)
-                h = now - e.wheelDelta / 5;
+            if (e.wheelDelta) {
+                h = now - e.wheelDelta / 5
+            }
             set(h)
         };
         return {
