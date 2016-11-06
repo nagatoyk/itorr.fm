@@ -17,17 +17,23 @@ var x = function (arg) {
             playList = [],
             _img = $('img'),
             _u = function (str) {
-                if (str.match(/http:\/\//))
-                    return str;
-                for (var _a = parseInt(str), _n = str.substr(1), _c = Math.floor(_n.length / _a), _y = _n.length % _a, _s = new Array(), i = 0; i < _y; i++)
-                    _s[i] = _n.substr((_c + 1) * i, _c + 1);
-                for (i = _y; i < _a; i++)
-                    _s[i] = _n.substr(_c * (i - _y) + (_c + 1) * _y, _c);
-                for (i = 0, _c = _n = ''; i < _s[0].length; i++)
-                    for (j = 0; j < _s.length; j++)
-                        _c += _s[j].substr(i, 1);
-                for (i = 0, _c = unescape(_c); i < _c.length; i++)
-                    _c.substr(i, 1) == '^' ? _n += '0' : _n += _c.substr(i, 1);
+                if (str.match(/http:\/\//)) {
+                    return str
+                }
+                for (var _a = parseInt(str), _n = str.substr(1), _c = Math.floor(_n.length / _a), _y = _n.length % _a, _s = new Array(), i = 0; i < _y; i++) {
+                    _s[i] = _n.substr((_c + 1) * i, _c + 1)
+                }
+                for (i = _y; i < _a; i++) {
+                    _s[i] = _n.substr(_c * (i - _y) + (_c + 1) * _y, _c)
+                }
+                for (i = 0, _c = _n = ''; i < _s[0].length; i++) {
+                    for (j = 0; j < _s.length; j++) {
+                        _c += _s[j].substr(i, 1)
+                    }
+                }
+                for (i = 0, _c = unescape(_c); i < _c.length; i++) {
+                    _c.substr(i, 1) == '^' ? _n += '0' : _n += _c.substr(i, 1)
+                }
                 return _n
             },
             add = function () {
@@ -148,7 +154,7 @@ var x = function (arg) {
                     }, 3e3)
                 },
                 time: function () {
-                    return A.currentTime * 1000;
+                    return A.currentTime * 1000
                 },
                 adjust: function (i) {
                     i = i || 1;
@@ -196,7 +202,7 @@ var x = function (arg) {
         };
         $('.info p').onclick = function () {
             $('input[name="k"]').value = this.innerHTML;
-            // $('#showS').click()
+            $('#showS').click()
         };
         $('#play2').onclick = $('#play').onclick;
         var UA = navigator.userAgent;
